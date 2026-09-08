@@ -68,6 +68,17 @@ const wellnessEntrySchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+
+    distressScore: {
+      type: Number,
+      min: 0,
+      max: 100,
+    },
+
+    riskLevel: {
+      type: String,
+      enum: ["Low", "Moderate", "High", "Critical"],
+    },
   },
   {
     timestamps: true,

@@ -1,4 +1,6 @@
 import WellnessEntry from "../models/WellnessEntry.js";
+import { calculateDistressScore } from "../services/distressScoreService.js";
+
 
 export const createWellnessEntry = async (req, res) => {
   try {
@@ -13,7 +15,16 @@ export const createWellnessEntry = async (req, res) => {
       journal,
       emotion,
       date,
+
     } = req.body;
+
+    const { distressScore, riskLevel } = calculateDistressScore({
+      mood,
+      energy,
+      sleep,
+      stress,
+      anxiety,
+    });
 
     const entry = await WellnessEntry.create({
       user: req.userId,
@@ -27,6 +38,8 @@ export const createWellnessEntry = async (req, res) => {
       journal,
       emotion,
       date,
+      distressScore,
+      riskLevel,
     });
 
     res.status(201).json({
