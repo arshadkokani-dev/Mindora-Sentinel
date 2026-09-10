@@ -20,7 +20,7 @@ function WellnessCheckin() {
 
   try {
     const response = await fetch(
-      'https://mindora-juzc.onrender.com/api/wellness',
+      'http://localhost:5000/api/wellness',
       {
         method: 'POST',
         headers: {
@@ -50,7 +50,7 @@ function WellnessCheckin() {
       setReflectionLoading(true)
 
       const aiResponse = await fetch(
-        'https://mindora-juzc.onrender.com/api/ai/reflection',
+        'http://localhost:5000/api/ai/reflection',
         {
           method: 'POST',
           headers: {

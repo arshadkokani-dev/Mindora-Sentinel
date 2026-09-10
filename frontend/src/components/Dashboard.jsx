@@ -27,7 +27,7 @@ function Dashboard() {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await fetch("https://mindora-juzc.onrender.com/api/analytics", {
+      const response = await fetch("http://localhost:5000/api/analytics", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -58,7 +58,7 @@ useEffect(() => {
     const token = localStorage.getItem('token')
 
     try {
-      const response = await fetch('https://mindora-juzc.onrender.com/api/wellness', {
+      const response = await fetch('http://localhost:5000/api/wellness', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -86,6 +86,8 @@ const emotionData = analytics?.emotionCounts
     }))
   : []
 
+  const latestEntry = entries.length > 0 ? entries[0] : null
+
   const emotionColors = [
   "#6366f1",
   "#ef4444",
@@ -109,6 +111,36 @@ const emotionData = analytics?.emotionCounts
     
 
       <main className="dashboard-content">
+
+      <section className="analytics-summary">
+  <div className="analytics-summary-header">
+    <p className="card-label">DISTRESS STATUS</p>
+    <h2>Your current risk level</h2>
+    <p>
+      Based on your latest wellness check-in.
+    </p>
+  </div>
+
+  {latestEntry?.distressScore !== undefined ? (
+    <div className="summary-cards">
+
+      <div className="summary-card">
+        <span>Distress Score</span>
+        <strong>{latestEntry.distressScore}/100</strong>
+      </div>
+
+      <div className="summary-card">
+        <span>Risk Level</span>
+        <strong>{latestEntry.riskLevel}</strong>
+      </div>
+
+    </div>
+  ) : (
+    <p>
+      Complete a new check-in to see your current distress status.
+    </p>
+  )}
+</section>
         
         <section className="analytics-summary">
   <div className="analytics-summary-header">
