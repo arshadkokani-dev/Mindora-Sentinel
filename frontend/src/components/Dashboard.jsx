@@ -415,6 +415,68 @@ const emotionData = analytics?.emotionCounts
     )}
 </section>
 
+       <section className="analytics-section">
+  <div className="analytics-header">
+    <p className="card-label">DISTRESS TREND</p>
+    <h2>Your distress over time</h2>
+    <p>
+      Track how your distress score has changed across your check-ins.
+    </p>
+  </div>
+
+  {entries.filter((entry) => entry.distressScore !== undefined).length > 0 ? (
+    <div className="chart-container">
+      <ResponsiveContainer width="100%" height={350}>
+        <LineChart
+          data={[...entries]
+            .filter((entry) => entry.distressScore !== undefined)
+            .reverse()}
+          margin={{
+            top: 20,
+            right: 20,
+            left: 0,
+            bottom: 20,
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+
+          <XAxis
+            dataKey="date"
+            tickFormatter={(date) =>
+              new Date(date).toLocaleDateString([], {
+                day: "numeric",
+                month: "short",
+              })
+            }
+          />
+
+          <YAxis domain={[0, 100]} />
+
+          <Tooltip
+            labelFormatter={(date) =>
+              new Date(date).toLocaleDateString()
+            }
+          />
+
+          <Legend />
+
+          <Line
+            type="monotone"
+            dataKey="distressScore"
+            name="Distress Score"
+            stroke="#dc2626"
+            strokeWidth={2}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
+  ) : (
+    <p>
+      Complete more check-ins to see your distress trend.
+    </p>
+  )}
+</section>
+
         <section className="wellness-section">
   <h2>Your wellness</h2>
 
