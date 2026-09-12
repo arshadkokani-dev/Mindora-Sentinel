@@ -422,6 +422,18 @@ const emotionData = analytics?.emotionCounts
     <p>
       Track how your distress score has changed across your check-ins.
     </p>
+    {analytics?.distressTrend && (
+  <div className="distress-trend-summary">
+    <h3>
+      Trend: {analytics.distressTrend.trend}
+    </h3>
+
+    <p>
+      Change: {analytics.distressTrend.change > 0 ? "+" : ""}
+      {analytics.distressTrend.change} points
+    </p>
+  </div>
+)}
   </div>
 
   {entries.filter((entry) => entry.distressScore !== undefined).length > 0 ? (

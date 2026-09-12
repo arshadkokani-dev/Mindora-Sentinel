@@ -1,5 +1,6 @@
 import WellnessEntry from "../models/WellnessEntry.js";
 import { calculateDistressScore } from "../services/distressScoreService.js";
+import { calculateDistressTrend } from "../services/distressTrendService.js";
 
 
 export const createWellnessEntry = async (req, res) => {
@@ -61,8 +62,11 @@ export const getWellnessEntries = async (req, res) => {
       user: req.userId,
     }).sort({ date: -1 });
 
+    const distressTrend = calculateDistressTrend(entries);
+
     res.status(200).json({
       entries,
+      distressTrend,
     });
   } catch (error) {
     console.error("Get wellness entries error:", error.message);
