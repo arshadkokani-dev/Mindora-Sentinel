@@ -310,6 +310,58 @@ const emotionData = analytics?.emotionCounts
     </div>
   )}
 
+  {/* Intervention Recommendation */}
+  {analytics?.intervention?.recommendations?.length > 0 && (
+    <div className="intervention-panel">
+      <div className="intervention-header">
+        <div>
+          <span className="intervention-label">
+            SUPPORT RECOMMENDATION
+          </span>
+          <h3>Recommended next steps</h3>
+          <p>
+            Suggested actions based on the current risk pattern
+            and recent check-in history.
+          </p>
+        </div>
+
+        <span
+          className={`intervention-priority ${analytics.intervention.priority.toLowerCase()}`}
+        >
+          {analytics.intervention.priority} Priority
+        </span>
+      </div>
+
+      <div className="intervention-list">
+        {analytics.intervention.recommendations.map(
+          (recommendation, index) => (
+            <div className="intervention-card" key={index}>
+              <div className="intervention-card-header">
+                <div>
+                  <span className="intervention-type">
+                    {recommendation.type}
+                  </span>
+
+                  <h4>{recommendation.title}</h4>
+                </div>
+              </div>
+
+              <div className="intervention-detail">
+                <span>Recommended action</span>
+                <p>{recommendation.action}</p>
+              </div>
+
+              <div className="intervention-detail">
+                <span>Why</span>
+                <p>{recommendation.reason}</p>
+              </div>
+            </div>
+          )
+        )}
+      </div>
+    </div>
+  )}
+
 
   <p className="risk-intelligence-note">
     Analysis of recent distress patterns to support timely intervention.

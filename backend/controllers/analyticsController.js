@@ -3,6 +3,7 @@ import { calculateDistressTrend } from "../services/distressTrendService.js";
 import { calculateEscalation } from "../services/escalationService.js";
 import { calculateRiskAlert } from "../services/alertService.js";
 import { calculateRiskReasoning } from "../services/riskReasoningService.js";
+import { calculateIntervention } from "../services/interventionService.js";
 
 export const getWellnessAnalytics = async (req, res) => {
   try {
@@ -51,6 +52,11 @@ export const getWellnessAnalytics = async (req, res) => {
 
     const escalation = calculateEscalation(entries);
 
+    const intervention = calculateIntervention({
+      riskLevel: entries[entries.length - 1].riskLevel,
+      escalation,
+    });
+
     const riskAlert = calculateRiskAlert(entries, escalation);
 
     const latestEntry = entries[entries.length - 1];
@@ -81,6 +87,7 @@ export const getWellnessAnalytics = async (req, res) => {
       escalation,
       riskAlert,
       riskReasoning,
+      intervention,
     });
   } catch (error) {
     console.error("Wellness analytics error:", error.message);

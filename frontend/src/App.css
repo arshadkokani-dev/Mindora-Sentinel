@@ -1473,3 +1473,128 @@ body {
   background: #4f46e5;
   transition: width 0.3s ease;
 }
+
+/* =========================================
+   SUPPORT RECOMMENDATION
+   ========================================= */
+
+.intervention-panel {
+  margin-top: 32px;
+  padding: 28px;
+  border: 1px solid #dbe4f0;
+  border-radius: 18px;
+  background: #f8fafc;
+}
+
+.intervention-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.intervention-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #64748b;
+}
+
+.intervention-header h3 {
+  margin: 0 0 8px;
+  font-size: 1.35rem;
+  color: #1e293b;
+}
+
+.intervention-header p {
+  margin: 0;
+  max-width: 650px;
+  line-height: 1.6;
+  color: #64748b;
+}
+
+.intervention-priority {
+  flex-shrink: 0;
+  padding: 7px 13px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
+.intervention-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.intervention-card {
+  padding: 22px;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.intervention-card-header {
+  margin-bottom: 18px;
+}
+
+.intervention-type {
+  display: inline-block;
+  margin-bottom: 7px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.intervention-card h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #1e293b;
+}
+
+.intervention-detail {
+  margin-top: 16px;
+}
+
+.intervention-detail span {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #475569;
+}
+
+.intervention-detail p {
+  margin: 0;
+  line-height: 1.6;
+  color: #64748b;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .intervention-panel {
+    padding: 20px;
+  }
+
+  .intervention-header {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .intervention-card {
+    padding: 18px;
+  }
+}
+
+.intervention-priority.high {
+  background: #e0e7ff;
+  color: #3730a3;
+}
