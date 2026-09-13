@@ -141,7 +141,66 @@ const emotionData = analytics?.emotionCounts
     </p>
   )}
 </section>
-        
+        <section className="analytics-summary">
+  <div className="analytics-summary-header">
+    <p className="card-label">EARLY WARNING</p>
+    <h2>Distress escalation status</h2>
+    <p>
+      This indicator looks at recent check-ins to identify meaningful
+      changes in distress over time.
+    </p>
+  </div>
+
+  {analytics?.escalation ? (
+    <div className="summary-cards">
+
+      <div className="summary-card">
+        <span>Escalation Status</span>
+        <strong>{analytics.escalation.status}</strong>
+      </div>
+
+      <div className="summary-card">
+        <span>Severity</span>
+        <strong>{analytics.escalation.severity}</strong>
+      </div>
+
+      <div className="summary-card">
+        <span>Recent Change</span>
+        <strong>
+          {analytics.escalation.scoreChange > 0 ? "+" : ""}
+          {analytics.escalation.scoreChange} points
+        </strong>
+      </div>
+
+      <div className="summary-card">
+        <span>Elevated Check-ins</span>
+        <strong>{analytics.escalation.highRiskCount}</strong>
+      </div>
+
+    </div>
+  ) : (
+    <p>
+      Complete more check-ins to determine your distress escalation pattern.
+    </p>
+  )}
+
+  {analytics?.escalation?.reasons?.length > 0 && (
+    <div className="distress-trend-summary">
+      <h3>Why?</h3>
+
+      <ul>
+        {analytics.escalation.reasons.map((reason, index) => (
+          <li key={index}>{reason}</li>
+        ))}
+      </ul>
+    </div>
+  )}
+
+  <p>
+    Early-warning analysis based on recent distress patterns to support timely intervention.
+  </p>
+</section>
+
         <section className="analytics-summary">
   <div className="analytics-summary-header">
     <p className="card-label">YOUR WELLNESS SNAPSHOT</p>
