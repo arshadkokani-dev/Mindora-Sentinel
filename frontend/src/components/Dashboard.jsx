@@ -141,6 +141,61 @@ const emotionData = analytics?.emotionCounts
     </p>
   )}
 </section>
+
+        {/* Risk Alert */}
+{analytics?.riskAlert?.alert && (
+  <section className="risk-alert-section">
+    <div className="risk-alert-header">
+      <p className="card-label">RISK ALERT</p>
+
+      <h2>{analytics.riskAlert.type}</h2>
+
+      <p>
+        An actionable risk pattern has been detected from recent
+        wellness check-ins.
+      </p>
+    </div>
+
+    <div className="risk-alert-details">
+      <div className="risk-alert-item">
+        <span>Severity</span>
+        <strong>{analytics.riskAlert.severity}</strong>
+      </div>
+
+      <div className="risk-alert-item">
+        <span>Current Distress</span>
+        <strong>
+          {latestEntry?.distressScore ?? "—"}/100
+        </strong>
+      </div>
+
+      <div className="risk-alert-item">
+        <span>Risk Level</span>
+        <strong>
+          {latestEntry?.riskLevel ?? "—"}
+        </strong>
+      </div>
+    </div>
+
+    {analytics.riskAlert.reasons?.length > 0 && (
+      <div className="risk-alert-reasons">
+        <h3>Why this was flagged</h3>
+
+        <ul>
+          {analytics.riskAlert.reasons.map((reason, index) => (
+            <li key={index}>{reason}</li>
+          ))}
+        </ul>
+      </div>
+    )}
+
+    <p className="risk-alert-action">
+      Human review recommended based on the detected risk pattern.
+    </p>
+  </section>
+)}
+
+
         <section className="analytics-summary">
   <div className="analytics-summary-header">
     <p className="card-label">EARLY WARNING</p>
@@ -200,6 +255,7 @@ const emotionData = analytics?.emotionCounts
     Early-warning analysis based on recent distress patterns to support timely intervention.
   </p>
 </section>
+
 
         <section className="analytics-summary">
   <div className="analytics-summary-header">
