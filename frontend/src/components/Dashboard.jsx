@@ -142,117 +142,177 @@ const emotionData = analytics?.emotionCounts
   )}
 </section>
 
-        {/* Risk Alert */}
-{analytics?.riskAlert?.alert && (
-  <section className="risk-alert-section">
-    <div className="risk-alert-header">
-      <p className="card-label">RISK ALERT</p>
-
-      <h2>{analytics.riskAlert.type}</h2>
-
+        {/* Risk Intelligence */}
+<section className="risk-intelligence-section">
+  <div className="risk-intelligence-header">
+    <div>
+      <p className="card-label">RISK INTELLIGENCE</p>
+      <h2>Early warning & risk assessment</h2>
       <p>
-        An actionable risk pattern has been detected from recent
-        wellness check-ins.
+        Recent wellness patterns are analyzed to identify changes
+        that may require timely support.
       </p>
     </div>
-
-    <div className="risk-alert-details">
-      <div className="risk-alert-item">
-        <span>Severity</span>
-        <strong>{analytics.riskAlert.severity}</strong>
-      </div>
-
-      <div className="risk-alert-item">
-        <span>Current Distress</span>
-        <strong>
-          {latestEntry?.distressScore ?? "—"}/100
-        </strong>
-      </div>
-
-      <div className="risk-alert-item">
-        <span>Risk Level</span>
-        <strong>
-          {latestEntry?.riskLevel ?? "—"}
-        </strong>
-      </div>
-    </div>
-
-    {analytics.riskAlert.reasons?.length > 0 && (
-      <div className="risk-alert-reasons">
-        <h3>Why this was flagged</h3>
-
-        <ul>
-          {analytics.riskAlert.reasons.map((reason, index) => (
-            <li key={index}>{reason}</li>
-          ))}
-        </ul>
-      </div>
-    )}
-
-    <p className="risk-alert-action">
-      Human review recommended based on the detected risk pattern.
-    </p>
-  </section>
-)}
-
-
-        <section className="analytics-summary">
-  <div className="analytics-summary-header">
-    <p className="card-label">EARLY WARNING</p>
-    <h2>Distress escalation status</h2>
-    <p>
-      This indicator looks at recent check-ins to identify meaningful
-      changes in distress over time.
-    </p>
   </div>
 
-  {analytics?.escalation ? (
-    <div className="summary-cards">
+  {/* Risk Alert */}
+  {analytics?.riskAlert?.alert && (
+    <div className="risk-alert-section">
+      <div className="risk-alert-header">
+        <div>
+          <span className="risk-alert-label">RISK ALERT</span>
+          <h3>{analytics.riskAlert.type}</h3>
+          <p>
+            An actionable risk pattern has been detected from
+            recent wellness check-ins.
+          </p>
+        </div>
 
-      <div className="summary-card">
-        <span>Escalation Status</span>
-        <strong>{analytics.escalation.status}</strong>
+        <span
+          className={`risk-severity-badge ${analytics.riskAlert.severity.toLowerCase()}`}
+        >
+          {analytics.riskAlert.severity}
+        </span>
       </div>
 
-      <div className="summary-card">
-        <span>Severity</span>
-        <strong>{analytics.escalation.severity}</strong>
+      <div className="risk-alert-details">
+        <div className="risk-alert-item">
+          <span>Current Distress</span>
+          <strong>
+            {latestEntry?.distressScore ?? "—"}
+            <small>/100</small>
+          </strong>
+        </div>
+
+        <div className="risk-alert-item">
+          <span>Risk Level</span>
+          <strong>
+            {latestEntry?.riskLevel ?? "—"}
+          </strong>
+        </div>
+
+        <div className="risk-alert-item">
+          <span>Escalation</span>
+          <strong>
+            {analytics?.escalation?.status ?? "—"}
+          </strong>
+        </div>
       </div>
 
-      <div className="summary-card">
-        <span>Recent Change</span>
-        <strong>
-          {analytics.escalation.scoreChange > 0 ? "+" : ""}
-          {analytics.escalation.scoreChange} points
-        </strong>
-      </div>
+      {analytics.riskAlert.reasons?.length > 0 && (
+        <div className="risk-alert-reasons">
+          <h4>Why this was flagged</h4>
 
-      <div className="summary-card">
-        <span>Elevated Check-ins</span>
-        <strong>{analytics.escalation.highRiskCount}</strong>
-      </div>
+          <ul>
+            {analytics.riskAlert.reasons.map((reason, index) => (
+              <li key={index}>{reason}</li>
+            ))}
+          </ul>
+        </div>
+      )}
 
+      <div className="risk-alert-action">
+        <span>Recommended next step</span>
+        <strong>Human review recommended</strong>
+      </div>
     </div>
-  ) : (
-    <p>
-      Complete more check-ins to determine your distress escalation pattern.
-    </p>
   )}
 
-  {analytics?.escalation?.reasons?.length > 0 && (
-    <div className="distress-trend-summary">
-      <h3>Why?</h3>
+  {/* Early Warning */}
+  {analytics?.escalation && (
+    <div className="early-warning-panel">
+      <div className="early-warning-header">
+        <div>
+          <span className="early-warning-label">EARLY WARNING</span>
+          <h3>{analytics.escalation.status}</h3>
+        </div>
 
-      <ul>
-        {analytics.escalation.reasons.map((reason, index) => (
-          <li key={index}>{reason}</li>
+        <span
+          className={`risk-severity-badge ${analytics.escalation.severity.toLowerCase()}`}
+        >
+          {analytics.escalation.severity}
+        </span>
+      </div>
+
+      <div className="early-warning-stats">
+        <div>
+          <span>Recent Change</span>
+          <strong>
+            {analytics.escalation.scoreChange > 0 ? "+" : ""}
+            {analytics.escalation.scoreChange}
+          </strong>
+        </div>
+
+        <div>
+          <span>Elevated Check-ins</span>
+          <strong>
+            {analytics.escalation.highRiskCount}
+          </strong>
+        </div>
+
+        <div>
+          <span>Pattern</span>
+          <strong>
+            {analytics.escalation.consecutiveIncrease
+              ? "Increasing"
+              : "Monitoring"}
+          </strong>
+        </div>
+      </div>
+
+      {analytics.escalation.reasons?.length > 0 && (
+        <div className="early-warning-reasons">
+          <h4>Pattern detected</h4>
+
+          <ul>
+            {analytics.escalation.reasons.map((reason, index) => (
+              <li key={index}>{reason}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  )}
+
+  {/* Risk Reasoning */}
+  {analytics?.riskReasoning?.factors?.length > 0 && (
+    <div className="risk-reasoning-panel">
+      <div className="risk-reasoning-header">
+        <span>RISK REASONING</span>
+        <h3>Contributing factors</h3>
+      </div>
+
+      <div className="risk-factors">
+        {analytics.riskReasoning.factors.map((factor, index) => (
+          <div className="risk-factor" key={index}>
+            <div className="risk-factor-top">
+              <div>
+                <strong>{factor.factor}</strong>
+                <span>{factor.explanation}</span>
+              </div>
+
+              <strong>
+                {factor.value}/10
+              </strong>
+            </div>
+
+            <div className="risk-factor-bar">
+              <div
+                className={`risk-factor-fill ${factor.impact.toLowerCase()}`}
+                style={{
+                  width: `${factor.value * 10}%`,
+                }}
+              />
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   )}
 
-  <p>
-    Early-warning analysis based on recent distress patterns to support timely intervention.
+
+  <p className="risk-intelligence-note">
+    Analysis of recent distress patterns to support timely intervention.
   </p>
 </section>
 
