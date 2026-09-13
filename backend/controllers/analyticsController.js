@@ -1,6 +1,7 @@
 import WellnessEntry from "../models/WellnessEntry.js";
 import { calculateDistressTrend } from "../services/distressTrendService.js";
 import { calculateEscalation } from "../services/escalationService.js";
+import { calculateRiskAlert } from "../services/alertService.js";
 
 export const getWellnessAnalytics = async (req, res) => {
   try {
@@ -49,6 +50,8 @@ export const getWellnessAnalytics = async (req, res) => {
 
     const escalation = calculateEscalation(entries);
 
+    const riskAlert = calculateRiskAlert(entries, escalation);
+
     const emotionCounts = {};
 
     entries.forEach((entry) => {
@@ -65,6 +68,7 @@ export const getWellnessAnalytics = async (req, res) => {
       emotionCounts,
       distressTrend,
       escalation,
+      riskAlert,
     });
   } catch (error) {
     console.error("Wellness analytics error:", error.message);
