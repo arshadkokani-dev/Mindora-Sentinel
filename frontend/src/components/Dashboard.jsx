@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import DashboardNav from './DashboardNav'
 import {
   LineChart,
   Line,
@@ -100,7 +99,6 @@ const emotionData = analytics?.emotionCounts
 
   return (
     <div className="dashboard">
-    <DashboardNav />
       <header className="dashboard-header">
         <div>
           <p className="dashboard-label">YOUR WELLNESS SPACE</p>

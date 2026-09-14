@@ -118,6 +118,7 @@ body {
   min-height: 100vh;
   padding: 40px 24px;
   background: #f7f7fb;
+  box-sizing: border-box;
 }
 
 .dashboard-header {
@@ -144,11 +145,6 @@ body {
   margin-top: 10px;
   color: #77778c;
   font-size: 17px;
-}
-
-.dashboard-content {
-  max-width: 1000px;
-  margin: 0 auto;
 }
 
 .checkin-card {
@@ -1625,6 +1621,15 @@ body {
   padding-right: 12px;
 }
 
+/* =========================================
+   DASHBOARD LAYOUT
+   ========================================= */
+
+.dashboard-layout {
+  min-height: 100vh;
+}
+
+
 /* Brand */
 
 .sidebar-header {
@@ -1784,16 +1789,11 @@ body {
 
 .dashboard {
   min-height: 100vh;
-  margin-left: 250px;
-  transition: margin-left 0.25s ease;
 }
 
-.dashboard-sidebar.collapsed ~ .dashboard {
-  margin-left: 78px;
-}
 
 /* =========================================
-   MOBILE
+   MOBILE / TABLET
    ========================================= */
 
 @media (max-width: 768px) {
@@ -1836,7 +1836,139 @@ body {
     padding: 0;
   }
 
+  
+}
+
+/* =========================================
+   FINAL DASHBOARD LAYOUT FIX
+   ========================================= */
+
+.dashboard-layout {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.dashboard-content {
+  margin-left: 250px;
+  width: calc(100% - 250px);
+  min-height: 100vh;
+  box-sizing: border-box;
+  transition: margin-left 0.25s ease, width 0.25s ease;
+}
+
+.dashboard-sidebar.collapsed ~ .dashboard-content {
+  margin-left: 78px;
+  width: calc(100% - 78px);
+}
+
+.dashboard {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 40px 24px;
+  box-sizing: border-box;
+}
+
+/* Keep dashboard sections aligned instead of creating a large centered gap */
+
+.dashboard-header,
+.dashboard-content > .dashboard > section {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+/* Tablet */
+
+@media (max-width: 1024px) {
   .dashboard {
+    padding: 32px 20px;
+  }
+
+  .dashboard-header,
+  .dashboard-content > .dashboard > section {
+    max-width: 100%;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+  
+
+  .dashboard {
+    padding: 28px 16px;
+  }
+}
+
+/* =========================================
+   DASHBOARD CONTENT + SIDEBAR LAYOUT
+   ========================================= */
+
+.dashboard-layout {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.dashboard-content {
+  margin-left: 250px;
+  width: calc(100% - 250px);
+  min-height: 100vh;
+  box-sizing: border-box;
+  transition: margin-left 0.25s ease, width 0.25s ease;
+}
+
+/* Collapsed sidebar */
+
+.dashboard-sidebar.collapsed ~ .dashboard-content {
+  margin-left: 78px;
+  width: calc(100% - 78px);
+}
+
+/* Dashboard itself */
+
+.dashboard {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 40px 32px;
+  box-sizing: border-box;
+}
+
+/* Content should use the available screen */
+
+.dashboard-header,
+.dashboard-content .dashboard > main {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+/* =========================================
+   TABLET
+   ========================================= */
+
+@media (max-width: 1024px) {
+  .dashboard {
+    padding: 32px 24px;
+  }
+}
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 768px) {
+  .dashboard-content {
     margin-left: 78px;
+    width: calc(100% - 78px);
+  }
+
+  .dashboard {
+    padding: 24px 16px;
   }
 }
