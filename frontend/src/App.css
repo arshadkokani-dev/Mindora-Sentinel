@@ -1598,3 +1598,245 @@ body {
   background: #e0e7ff;
   color: #3730a3;
 }
+
+/* =========================================
+   MINDORA SENTINEL SIDEBAR
+   ========================================= */
+
+.dashboard-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100vh;
+  background: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  padding: 24px 16px;
+  box-sizing: border-box;
+  transition: width 0.25s ease;
+}
+
+.dashboard-sidebar.collapsed {
+  width: 78px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+/* Brand */
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 36px;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: inherit;
+  min-width: 0;
+}
+
+.sidebar-logo {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eef2ff;
+  color: #4f46e5;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.sidebar-brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.sidebar-brand-text strong {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.sidebar-brand-text span {
+  margin-top: 3px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9ca3af;
+}
+
+/* Collapse button */
+
+.sidebar-collapse-button {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border: 1px solid #e5e7eb;
+  border-radius: 9px;
+  background: #ffffff;
+  color: #6b7280;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.sidebar-collapse-button:hover {
+  background: #f5f7ff;
+  color: #4f46e5;
+  border-color: #c7d2fe;
+}
+
+/* Navigation */
+
+.sidebar-navigation {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  min-height: 46px;
+  padding: 0 13px;
+  border-radius: 11px;
+  text-decoration: none;
+  color: #6b7280;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.sidebar-link:hover {
+  background: #f8f9fc;
+  color: #374151;
+}
+
+.sidebar-link.active {
+  background: #eef2ff;
+  color: #4f46e5;
+  font-weight: 600;
+}
+
+.sidebar-icon {
+  width: 22px;
+  flex-shrink: 0;
+  text-align: center;
+  font-size: 18px;
+}
+
+.sidebar-divider {
+  height: 1px;
+  background: #eef0f3;
+  margin: 14px 4px;
+}
+
+/* Collapsed navigation */
+
+.dashboard-sidebar.collapsed .sidebar-link {
+  justify-content: center;
+  padding: 0;
+}
+
+.dashboard-sidebar.collapsed .sidebar-icon {
+  width: auto;
+}
+
+/* Footer */
+
+.sidebar-footer {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 10px;
+  color: #9ca3af;
+  font-size: 11px;
+}
+
+.sidebar-footer-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #a5b4fc;
+  flex-shrink: 0;
+}
+
+/* Main dashboard spacing */
+
+.dashboard {
+  min-height: 100vh;
+  margin-left: 250px;
+  transition: margin-left 0.25s ease;
+}
+
+.dashboard-sidebar.collapsed ~ .dashboard {
+  margin-left: 78px;
+}
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 768px) {
+
+  .dashboard-sidebar {
+    width: 78px;
+    padding: 18px 12px;
+  }
+
+  .dashboard-sidebar .sidebar-brand-text,
+  .dashboard-sidebar .sidebar-link span:not(.sidebar-icon),
+  .dashboard-sidebar .sidebar-footer {
+    display: none;
+  }
+
+  .sidebar-header {
+    justify-content: center;
+    margin-bottom: 28px;
+  }
+
+  .sidebar-brand {
+    justify-content: center;
+  }
+
+  .sidebar-collapse-button {
+    position: absolute;
+    right: -14px;
+    top: 22px;
+    width: 28px;
+    height: 28px;
+    background: #ffffff;
+  }
+
+  .sidebar-navigation {
+    gap: 7px;
+  }
+
+  .sidebar-link {
+    justify-content: center;
+    padding: 0;
+  }
+
+  .dashboard {
+    margin-left: 78px;
+  }
+}
