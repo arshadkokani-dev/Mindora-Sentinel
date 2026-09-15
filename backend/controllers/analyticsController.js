@@ -1,9 +1,11 @@
 import WellnessEntry from "../models/WellnessEntry.js";
+import CBTJournal from "../models/CBTJournal.js";
 import { calculateDistressTrend } from "../services/distressTrendService.js";
 import { calculateEscalation } from "../services/escalationService.js";
 import { calculateRiskAlert } from "../services/alertService.js";
 import { calculateRiskReasoning } from "../services/riskReasoningService.js";
 import { calculateIntervention } from "../services/interventionService.js";
+import { analyzeLongitudinalEmotion } from "../services/longitudinalEmotionService.js";
 
 export const getWellnessAnalytics = async (req, res) => {
   try {
@@ -78,6 +80,43 @@ export const getWellnessAnalytics = async (req, res) => {
       }
     });
 
+    // ---------------------------------------------------------
+    // Longitudinal AI Emotional Analysis
+    // ---------------------------------------------------------
+
+    const analyzedJournalEntries = await CBTJournal.find({
+      user: req.userId,
+      "aiAnalysis.sentiment": {
+        $exists: true,
+      },
+    })
+      .sort({ date: 1 })
+      .limit(10);
+
+    let longitudinalEmotion = {
+      status: "Insufficient Data",
+      summary:
+        "More analyzed journal entries are needed to identify an emotional trajectory.",
+      changes: [],
+      persistentSignals: [],
+      emergingSignals: [],
+      overallDirection: "Stable",
+    };
+
+    if (analyzedJournalEntries.length >= 2) {
+      try {
+        longitudinalEmotion =
+          await analyzeLongitudinalEmotion(
+            analyzedJournalEntries
+          );
+      } catch (aiError) {
+        console.error(
+          "Longitudinal emotion analysis error:",
+          aiError.message
+        );
+      }
+    }
+
     res.status(200).json({
       totalEntries: total,
       averages,
@@ -88,6 +127,7 @@ export const getWellnessAnalytics = async (req, res) => {
       riskAlert,
       riskReasoning,
       intervention,
+      longitudinalEmotion,
     });
   } catch (error) {
     console.error("Wellness analytics error:", error.message);

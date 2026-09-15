@@ -1595,6 +1595,374 @@ body {
   color: #3730a3;
 }
 
+/* =========================================================
+   Emotional Trajectory
+   ========================================================= */
+
+.dashboard .emotional-trajectory-section {
+  width: 100%;
+  margin-top: 24px;
+  padding: 24px;
+  box-sizing: border-box;
+
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+
+  text-align: left !important;
+}
+
+/* ---------------------------------------------------------
+   Header
+   --------------------------------------------------------- */
+
+.dashboard .emotional-trajectory-section .section-heading {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+  margin: 0 0 18px 0;
+  padding: 0;
+
+  text-align: left !important;
+}
+
+.dashboard .emotional-trajectory-section
+.section-heading > div {
+  flex: 1;
+  min-width: 0;
+
+  text-align: left !important;
+}
+
+.dashboard .emotional-trajectory-section
+.section-heading h2 {
+  margin: 0;
+
+  font-size: 20px;
+  font-weight: 650;
+  line-height: 1.3;
+
+  color: #1e293b;
+
+  text-align: left !important;
+}
+
+.dashboard .emotional-trajectory-section
+.section-heading p {
+  margin: 5px 0 0;
+
+  font-size: 13px;
+  line-height: 1.5;
+
+  color: #64748b;
+
+  text-align: left !important;
+}
+
+/* ---------------------------------------------------------
+   Trajectory Status
+   --------------------------------------------------------- */
+
+.dashboard .emotional-trajectory-section
+.trajectory-status {
+  flex-shrink: 0;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 7px 13px;
+
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+
+  background: #f8fafc;
+  color: #475569;
+
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+
+  white-space: nowrap;
+  text-transform: capitalize;
+
+  text-align: center !important;
+}
+
+/* Improving */
+
+.dashboard .emotional-trajectory-section
+.trajectory-status.improving {
+  background: #ecfdf5;
+  border-color: #bbf7d0;
+  color: #15803d;
+}
+
+/* Stable */
+
+.dashboard .emotional-trajectory-section
+.trajectory-status.stable {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  color: #2563eb;
+}
+
+/* Mixed */
+
+.dashboard .emotional-trajectory-section
+.trajectory-status.mixed {
+  background: #fffbeb;
+  border-color: #fde68a;
+  color: #a16207;
+}
+
+/* Increasing Concern */
+
+.dashboard .emotional-trajectory-section
+.trajectory-status.increasing-concern {
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #dc2626;
+}
+
+/* ---------------------------------------------------------
+   Main Summary
+   --------------------------------------------------------- */
+
+.dashboard .emotional-trajectory-section
+.trajectory-summary {
+  width: 100%;
+
+  margin: 0 0 14px 0;
+  padding: 18px;
+
+  box-sizing: border-box;
+
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+
+  text-align: left !important;
+}
+
+.dashboard .emotional-trajectory-section
+.trajectory-summary h3 {
+  margin: 0 0 7px;
+
+  font-size: 16px;
+  font-weight: 650;
+  line-height: 1.35;
+
+  color: #334155;
+
+  text-align: left !important;
+}
+
+.dashboard .emotional-trajectory-section
+.trajectory-summary p {
+  margin: 0;
+  max-width: 900px;
+
+  font-size: 14px;
+  line-height: 1.6;
+
+  color: #475569;
+
+  text-align: left !important;
+}
+
+/* ---------------------------------------------------------
+   Information Cards
+   --------------------------------------------------------- */
+
+.dashboard .emotional-trajectory-section
+.trajectory-grid {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 12px;
+
+  text-align: left !important;
+}
+
+.dashboard .emotional-trajectory-section
+.trajectory-card {
+  min-width: 0;
+
+  padding: 16px;
+
+  box-sizing: border-box;
+
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+
+  text-align: left !important;
+}
+
+.dashboard .emotional-trajectory-section
+.trajectory-card h4 {
+  margin: 0 0 12px;
+
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.4;
+
+  color: #334155;
+
+  text-align: left !important;
+}
+
+/* ---------------------------------------------------------
+   Changes Detected
+   --------------------------------------------------------- */
+
+.dashboard .emotional-trajectory-section
+.trajectory-list {
+  display: flex;
+  flex-direction: column;
+
+  gap: 11px;
+
+  text-align: left !important;
+}
+
+.dashboard .emotional-trajectory-section
+.trajectory-item {
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+
+  text-align: left !important;
+}
+
+.dashboard .emotional-trajectory-section
+.trajectory-item strong {
+  margin: 0;
+
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.4;
+
+  color: #334155;
+
+  text-transform: capitalize;
+
+  text-align: left !important;
+}
+
+.dashboard .emotional-trajectory-section
+.trajectory-item span {
+  margin: 0;
+
+  font-size: 12px;
+  line-height: 1.5;
+
+  color: #64748b;
+
+  text-align: left !important;
+}
+
+/* ---------------------------------------------------------
+   Signal Tags
+   --------------------------------------------------------- */
+
+.dashboard .emotional-trajectory-section
+.signal-tags {
+  display: flex;
+  flex-wrap: wrap;
+
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  gap: 7px;
+
+  text-align: left !important;
+}
+
+.dashboard .emotional-trajectory-section
+.signal-tag {
+  display: inline-flex;
+  align-items: center;
+
+  max-width: 100%;
+
+  padding: 6px 9px;
+
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 7px;
+
+  color: #475569;
+
+  font-size: 12px;
+  line-height: 1.35;
+
+  overflow-wrap: anywhere;
+
+  text-align: left !important;
+}
+
+/* ---------------------------------------------------------
+   Empty State
+   --------------------------------------------------------- */
+
+.dashboard .emotional-trajectory-section
+.trajectory-empty {
+  margin: 0;
+
+  font-size: 12px;
+  line-height: 1.5;
+
+  color: #94a3b8;
+
+  text-align: left !important;
+}
+
+/* ---------------------------------------------------------
+   Responsive
+   --------------------------------------------------------- */
+
+@media (max-width: 1000px) {
+  .dashboard .emotional-trajectory-section
+  .trajectory-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .dashboard .emotional-trajectory-section {
+    padding: 18px;
+  }
+
+  .dashboard .emotional-trajectory-section
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .dashboard .emotional-trajectory-section
+  .trajectory-status {
+    align-self: flex-start;
+  }
+
+  .dashboard .emotional-trajectory-section
+  .trajectory-summary {
+    padding: 15px;
+  }
+
+  .dashboard .emotional-trajectory-section
+  .trajectory-card {
+    padding: 15px;
+  }
+}
 /* =========================================
    MINDORA SENTINEL SIDEBAR
    ========================================= */

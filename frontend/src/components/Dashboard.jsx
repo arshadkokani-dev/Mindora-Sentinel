@@ -368,6 +368,118 @@ const emotionData = analytics?.emotionCounts
   </p>
 </section>
 
+{analytics?.longitudinalEmotion && (
+  <section className="dashboard-section emotional-trajectory-section">
+    <div className="section-heading">
+      <div>
+        <h2>Emotional Trajectory</h2>
+        <p>
+          AI-assisted analysis of how emotional signals are changing
+          across recent journal entries.
+        </p>
+      </div>
+
+      <span
+        className={`trajectory-status ${
+          analytics.longitudinalEmotion.overallDirection
+            ?.toLowerCase()
+            .replace(/\s+/g, "-")
+        }`}
+      >
+        {analytics.longitudinalEmotion.overallDirection}
+      </span>
+    </div>
+
+    <div className="trajectory-summary">
+      <h3>{analytics.longitudinalEmotion.status}</h3>
+
+      <p>
+        {analytics.longitudinalEmotion.summary}
+      </p>
+    </div>
+
+    <div className="trajectory-grid">
+      <div className="trajectory-card">
+        <h4>Changes Detected</h4>
+
+        {analytics.longitudinalEmotion.changes?.length > 0 ? (
+          <div className="trajectory-list">
+            {analytics.longitudinalEmotion.changes.map(
+              (change, index) => (
+                <div
+                  className="trajectory-item"
+                  key={index}
+                >
+                  <strong>
+                    {change.direction} — {change.signal}
+                  </strong>
+
+                  <span>
+                    {change.explanation}
+                  </span>
+                </div>
+              )
+            )}
+          </div>
+        ) : (
+          <p className="trajectory-empty">
+            No significant changes detected across recent
+            journal entries.
+          </p>
+        )}
+      </div>
+
+      <div className="trajectory-card">
+        <h4>Persistent Signals</h4>
+
+        {analytics.longitudinalEmotion.persistentSignals
+          ?.length > 0 ? (
+          <div className="signal-tags">
+            {analytics.longitudinalEmotion.persistentSignals.map(
+              (signal, index) => (
+                <span
+                  className="signal-tag"
+                  key={index}
+                >
+                  {signal}
+                </span>
+              )
+            )}
+          </div>
+        ) : (
+          <p className="trajectory-empty">
+            No persistent emotional signals detected.
+          </p>
+        )}
+      </div>
+
+      <div className="trajectory-card">
+        <h4>Emerging Signals</h4>
+
+        {analytics.longitudinalEmotion.emergingSignals
+          ?.length > 0 ? (
+          <div className="signal-tags">
+            {analytics.longitudinalEmotion.emergingSignals.map(
+              (signal, index) => (
+                <span
+                  className="signal-tag"
+                  key={index}
+                >
+                  {signal}
+                </span>
+              )
+            )}
+          </div>
+        ) : (
+          <p className="trajectory-empty">
+            No new emotional signals detected.
+          </p>
+        )}
+      </div>
+    </div>
+  </section>
+)}
+
 
         <section className="analytics-summary">
   <div className="analytics-summary-header">
