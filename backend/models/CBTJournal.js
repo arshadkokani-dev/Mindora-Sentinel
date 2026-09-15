@@ -46,6 +46,34 @@ const cbtJournalSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+
+    aiAnalysis: {
+      sentiment: {
+        type: String,
+        enum: ["positive", "neutral", "negative"],
+      },
+
+      emotions: {
+        type: [String],
+        default: [],
+      },
+
+      emotionalIntensity: {
+        type: Number,
+        min: 0,
+        max: 100,
+      },
+
+      distressIndicators: {
+        type: [String],
+        default: [],
+      },
+
+      contextSignals: {
+        type: [String],
+        default: [],
+      },
+    },
   },
   {
     timestamps: true,
