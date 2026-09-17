@@ -6,6 +6,7 @@ import { calculateRiskAlert } from "../services/alertService.js";
 import { calculateRiskReasoning } from "../services/riskReasoningService.js";
 import { calculateIntervention } from "../services/interventionService.js";
 import { analyzeLongitudinalEmotion } from "../services/longitudinalEmotionService.js";
+import { calculateEngagement } from "../services/engagementService.js";
 
 export const getWellnessAnalytics = async (req, res) => {
   try {
@@ -93,6 +94,19 @@ export const getWellnessAnalytics = async (req, res) => {
       .sort({ date: 1 })
       .limit(10);
 
+    // ---------------------------------------------------------
+    // Engagement Analysis
+    // ---------------------------------------------------------
+
+    const journalEntries = await CBTJournal.find({
+      user: req.userId,
+    }).sort({ date: 1 });
+
+    const engagement = calculateEngagement({
+      wellnessEntries: entries,
+      journalEntries,
+    });
+
     let longitudinalEmotion = {
       status: "Insufficient Data",
       summary:
@@ -128,6 +142,7 @@ export const getWellnessAnalytics = async (req, res) => {
       riskReasoning,
       intervention,
       longitudinalEmotion,
+      engagement,
     });
   } catch (error) {
     console.error("Wellness analytics error:", error.message);
