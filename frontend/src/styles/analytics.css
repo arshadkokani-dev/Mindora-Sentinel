@@ -1,0 +1,245 @@
+/* =========================================================
+   ANALYTICS — ENGAGEMENT MONITORING
+========================================================= */
+
+.engagement-section .summary-cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  width: 100%;
+}
+
+.engagement-section .summary-card {
+  min-height: 110px;
+  padding: 20px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-sizing: border-box;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.engagement-section .summary-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+}
+
+.engagement-section .summary-card:nth-child(1) {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.engagement-section .summary-card:nth-child(1) strong {
+  color: #15803d;
+}
+
+.engagement-section .summary-card:nth-child(2) {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+}
+
+.engagement-section .summary-card:nth-child(2) strong {
+  color: #1d4ed8;
+}
+
+.engagement-section .summary-card:nth-child(3) {
+  background: #f5f3ff;
+  border-color: #ddd6fe;
+}
+
+.engagement-section .summary-card:nth-child(3) strong {
+  color: #6d28d9;
+}
+
+.engagement-section .summary-card:nth-child(4) {
+  background: #fff7ed;
+  border-color: #fed7aa;
+}
+
+.engagement-section .summary-card:nth-child(4) strong {
+  color: #c2410c;
+}
+
+
+/* =========================================================
+   ANALYTICS — ENGAGEMENT DETAILS
+========================================================= */
+
+.engagement-details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.engagement-details > div {
+  padding: 18px 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.engagement-details > div:first-child {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.engagement-details > div:last-child {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+}
+
+.engagement-details .metric-label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.engagement-details strong {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.engagement-details > div:first-child strong {
+  color: #15803d;
+}
+
+.engagement-details > div:last-child strong {
+  color: #1d4ed8;
+}
+
+
+/* =========================================================
+   ANALYTICS — SUPPORT RECOMMENDATION
+========================================================= */
+
+.intervention-panel {
+  padding: 28px;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  background: #ffffff;
+}
+
+.intervention-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #eef0f3;
+}
+
+.intervention-header h2 {
+  margin: 8px 0 8px;
+}
+
+.intervention-header p {
+  margin: 0;
+  max-width: 650px;
+}
+
+.intervention-header .risk-severity-badge {
+  flex-shrink: 0;
+}
+
+.intervention-content {
+  display: grid;
+  gap: 16px;
+  margin-top: 22px;
+}
+
+.intervention-recommendation {
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  background: #f8fafc;
+}
+
+.intervention-recommendation .metric-label {
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+.intervention-recommendation h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.intervention-recommendation > p {
+  margin: 0;
+  line-height: 1.6;
+  color: #4b5563;
+}
+
+.intervention-reason {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.intervention-reason strong {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.intervention-reason span {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #6b7280;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+  .engagement-section .summary-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .intervention-header {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 700px) {
+  .engagement-details {
+    grid-template-columns: 1fr;
+  }
+
+  .intervention-panel {
+    padding: 22px;
+  }
+}
+
+@media (max-width: 520px) {
+  .engagement-section .summary-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .engagement-section .summary-card {
+    min-height: 100px;
+  }
+
+  .intervention-panel {
+    padding: 18px;
+  }
+
+  .intervention-recommendation {
+    padding: 18px;
+  }
+}

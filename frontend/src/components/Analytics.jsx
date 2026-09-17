@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import '../styles/analytics.css'
 import {
   LineChart,
   Line,
@@ -846,6 +847,100 @@ function Analytics() {
           )
         )}
 
+      </div>
+
+    </div>
+
+  </section>
+)}
+
+{/* ENGAGEMENT MONITORING */}
+
+{analytics?.engagement && (
+  <section className="analytics-section engagement-section">
+
+    <div className="analytics-header">
+
+      <p className="card-label">
+        ENGAGEMENT MONITORING
+      </p>
+
+      <h2>
+        Check-in engagement
+      </h2>
+
+      <p>
+        A simple view of recent wellness and journal activity.
+      </p>
+
+    </div>
+
+
+    <div className="summary-cards">
+
+      <div className="summary-card">
+        <span>Activity Status</span>
+
+        <strong>
+          {analytics.engagement.status}
+        </strong>
+      </div>
+
+
+      <div className="summary-card">
+        <span>Engagement Trend</span>
+
+        <strong>
+          {analytics.engagement.trend}
+        </strong>
+      </div>
+
+
+      <div className="summary-card">
+        <span>Wellness Check-ins</span>
+
+        <strong>
+          {analytics.engagement.totalCheckIns}
+        </strong>
+      </div>
+
+
+      <div className="summary-card">
+        <span>Journal Entries</span>
+
+        <strong>
+          {analytics.engagement.totalJournalEntries}
+        </strong>
+      </div>
+
+    </div>
+
+
+    <div className="engagement-details">
+
+      <div>
+        <span className="metric-label">
+          LAST INTERACTION
+        </span>
+
+        <strong>
+          {analytics.engagement.lastInteraction
+            ? formatFullDate(
+                analytics.engagement.lastInteraction
+              )
+            : "No interaction recorded"}
+        </strong>
+      </div>
+
+
+      <div>
+        <span className="metric-label">
+          DAYS SINCE LAST INTERACTION
+        </span>
+
+        <strong>
+          {analytics.engagement.daysSinceLastInteraction ?? "—"}
+        </strong>
       </div>
 
     </div>
