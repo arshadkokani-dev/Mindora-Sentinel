@@ -7,6 +7,7 @@ import { calculateRiskReasoning } from "../services/riskReasoningService.js";
 import { calculateIntervention } from "../services/interventionService.js";
 import { analyzeLongitudinalEmotion } from "../services/longitudinalEmotionService.js";
 import { calculateEngagement } from "../services/engagementService.js";
+import { calculateCheckInStatus } from "../services/checkInService.js";
 
 export const getWellnessAnalytics = async (req, res) => {
   try {
@@ -107,6 +108,10 @@ export const getWellnessAnalytics = async (req, res) => {
       journalEntries,
     });
 
+    const checkInStatus = calculateCheckInStatus({
+      wellnessEntries: entries,
+    });
+
     let longitudinalEmotion = {
       status: "Insufficient Data",
       summary:
@@ -143,6 +148,7 @@ export const getWellnessAnalytics = async (req, res) => {
       intervention,
       longitudinalEmotion,
       engagement,
+      checkInStatus,
     });
   } catch (error) {
     console.error("Wellness analytics error:", error.message);

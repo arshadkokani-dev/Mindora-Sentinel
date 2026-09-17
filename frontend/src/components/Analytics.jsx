@@ -948,6 +948,119 @@ function Analytics() {
   </section>
 )}
 
+{/* PERIODIC CHECK-IN */}
+
+{analytics?.checkInStatus && (
+  <section className="analytics-section checkin-status-section">
+
+    <div className="analytics-header">
+
+      <p className="card-label">
+        PERIODIC CHECK-IN
+      </p>
+
+      <h2>
+        Check-in schedule
+      </h2>
+
+      <p>
+        Stay connected through regular wellness check-ins.
+      </p>
+
+    </div>
+
+
+    <div className="checkin-status-panel">
+
+      <div className="checkin-status-main">
+
+        <span className="metric-label">
+          CURRENT STATUS
+        </span>
+
+        <strong>
+          {analytics.checkInStatus.status}
+        </strong>
+
+      </div>
+
+
+      <div className="checkin-status-details">
+
+        <div>
+          <span className="metric-label">
+            CHECK-IN INTERVAL
+          </span>
+
+          <strong>
+            Every {analytics.checkInStatus.intervalDays} days
+          </strong>
+        </div>
+
+
+        <div>
+          <span className="metric-label">
+            LAST CHECK-IN
+          </span>
+
+          <strong>
+            {analytics.checkInStatus.lastCheckIn
+              ? formatFullDate(
+                  analytics.checkInStatus.lastCheckIn
+                )
+              : "Not available"}
+          </strong>
+        </div>
+
+
+        <div>
+          <span className="metric-label">
+            NEXT CHECK-IN
+          </span>
+
+          <strong>
+            {analytics.checkInStatus.nextCheckInDue
+              ? formatFullDate(
+                  analytics.checkInStatus.nextCheckInDue
+                )
+              : "Not scheduled"}
+          </strong>
+        </div>
+
+      </div>
+
+
+      {analytics.checkInStatus.status === "Scheduled" && (
+        <p className="checkin-status-message">
+          Your next wellness check-in is scheduled in{" "}
+          <strong>
+            {analytics.checkInStatus.daysUntilDue}{" "}
+            {analytics.checkInStatus.daysUntilDue === 1
+              ? "day"
+              : "days"}
+          </strong>.
+        </p>
+      )}
+
+
+      {analytics.checkInStatus.status === "Overdue" && (
+        <p className="checkin-status-message overdue">
+          Your scheduled check-in is{" "}
+          <strong>
+            {analytics.checkInStatus.daysOverdue}{" "}
+            {analytics.checkInStatus.daysOverdue === 1
+              ? "day"
+              : "days"}{" "}
+            overdue
+          </strong>.
+        </p>
+      )}
+
+    </div>
+
+  </section>
+)}
+
 {/* EMOTIONAL TRAJECTORY */}
 
 {analytics?.emotionalTrajectory && (
