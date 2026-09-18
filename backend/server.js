@@ -9,6 +9,7 @@ import wellnessRoutes from "./routes/wellnessRoutes.js";
 import cbtRoutes from "./routes/cbtRoutes.js";
 import aiRoutes from "./routes/aiRoutes.js";
 import analyticsRoutes from "./routes/analyticsRoutes.js";
+import commandCenterRoutes from "./routes/commandCenterRoutes.js";
 
 dotenv.config();
 
@@ -20,7 +21,7 @@ app.use("/api/wellness", wellnessRoutes);
 app.use("/api/cbt", cbtRoutes);
 app.use("/api/ai", aiRoutes);
 app.use("/api/analytics", analyticsRoutes);
-
+app.use("/api/cases", commandCenterRoutes);
 const PORT = process.env.PORT || 5000;
 
 app.get("/", (req, res) => {
