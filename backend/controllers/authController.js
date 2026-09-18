@@ -28,6 +28,7 @@ export const signup = async (req, res) => {
         id: user._id,
         name: user.name,
         email: user.email,
+        role: user.role || "victim",
       },
     });
   } catch (error) {
@@ -75,6 +76,7 @@ export const login = async (req, res) => {
         id: user._id,
         name: user.name,
         email: user.email,
+        role: user.role || "victim",
       },
     });
   } catch (error) {
