@@ -1,8 +1,39 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
 function DashboardNav() {
   const [collapsed, setCollapsed] = useState(false)
+
+  const [userRole, setUserRole] = useState(null)
+
+    useEffect(() => {
+      const fetchUserRole = async () => {
+        try {
+          const token = localStorage.getItem('token')
+
+          if (!token) return
+
+          const response = await fetch(
+            'http://localhost:5000/api/auth/me',
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+
+          if (!response.ok) return
+
+          const data = await response.json()
+
+          setUserRole(data.role)
+        } catch (error) {
+          console.error('Failed to load user role:', error)
+        }
+      }
+
+      fetchUserRole()
+    }, [])
 
   return (
     <aside className={`dashboard-sidebar ${collapsed ? 'collapsed' : ''}`}>
@@ -82,6 +113,18 @@ function DashboardNav() {
           <span className="sidebar-icon">✎</span>
           {!collapsed && <span>CBT Journal</span>}
         </NavLink>
+
+        {['caseworker', 'counsellor', 'admin'].includes(userRole) && (
+        <NavLink
+          to="/command-center"
+          className={({ isActive }) =>
+            isActive ? 'sidebar-link active' : 'sidebar-link'
+          }
+        >
+          <span className="sidebar-icon">▣</span>
+          {!collapsed && <span>Command Center</span>}
+        </NavLink>
+      )}
 
       </nav>
 

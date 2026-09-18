@@ -1,0 +1,371 @@
+/* =========================================================
+   COMMAND CENTER
+========================================================= */
+
+.command-center-page {
+  width: 100%;
+  max-width: 1250px;
+  margin: 0 auto;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.command-center-header {
+  margin-bottom: 28px;
+}
+
+.command-center-header .metric-label {
+  color: #64748b;
+}
+
+.command-center-header h1 {
+  margin: 7px 0 8px;
+  font-size: 32px;
+  font-weight: 700;
+  color: #172033;
+}
+
+.command-center-header p {
+  max-width: 720px;
+  margin: 0;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   SUMMARY CARDS
+========================================================= */
+
+.command-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.command-summary-card {
+  min-height: 118px;
+  padding: 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  background: #ffffff;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.command-summary-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.07);
+}
+
+.command-summary-card span {
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.command-summary-card strong {
+  font-size: 30px;
+  line-height: 1;
+  font-weight: 700;
+  color: #172033;
+}
+
+
+/* Subtle semantic accents */
+
+.command-summary-card:nth-child(1) {
+  border-top: 3px solid #64748b;
+}
+
+.command-summary-card:nth-child(2) {
+  border-top: 3px solid #3b82f6;
+}
+
+.command-summary-card:nth-child(3) {
+  border-top: 3px solid #f59e0b;
+}
+
+.command-summary-card:nth-child(4) {
+  border-top: 3px solid #8b5cf6;
+}
+
+
+/* =========================================================
+   GENERAL SECTIONS
+========================================================= */
+
+.command-risk-overview,
+.command-cases-section {
+  padding: 26px;
+  margin-bottom: 24px;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  background: #ffffff;
+  box-sizing: border-box;
+  box-shadow: 0 3px 14px rgba(15, 23, 42, 0.035);
+}
+
+.command-section-header {
+  margin-bottom: 20px;
+}
+
+.command-section-header .metric-label {
+  color: #64748b;
+}
+
+.command-section-header h2 {
+  margin: 7px 0 0;
+  font-size: 20px;
+  font-weight: 650;
+  color: #172033;
+}
+
+
+/* =========================================================
+   RISK OVERVIEW
+========================================================= */
+
+.risk-distribution {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.risk-distribution > div {
+  padding: 17px;
+  border: 1px solid #e2e8f0;
+  border-radius: 13px;
+  background: #f8fafc;
+  box-sizing: border-box;
+}
+
+.risk-distribution span {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.risk-distribution strong {
+  font-size: 23px;
+  font-weight: 700;
+  color: #172033;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.command-empty-state {
+  padding: 48px 24px;
+  text-align: center;
+  border: 1px dashed #cbd5e1;
+  border-radius: 14px;
+  background: #f8fafc;
+}
+
+.command-empty-state h3 {
+  margin: 0 0 8px;
+  font-size: 17px;
+  color: #334155;
+}
+
+.command-empty-state p {
+  max-width: 520px;
+  margin: 0 auto;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   CASE LIST
+========================================================= */
+
+.command-case-list {
+  display: grid;
+  gap: 14px;
+}
+
+.command-case-card {
+  padding: 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 15px;
+  background: #ffffff;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.command-case-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+}
+
+.case-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.case-main h3 {
+  margin: 0 0 5px;
+  color: #172033;
+  font-size: 17px;
+}
+
+.case-main p {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   RISK BADGES
+========================================================= */
+
+.case-risk-badge {
+  padding: 6px 11px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 650;
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.case-risk-badge.low {
+  background: #ecfdf5;
+  color: #15803d;
+}
+
+.case-risk-badge.moderate {
+  background: #fffbeb;
+  color: #a16207;
+}
+
+.case-risk-badge.high {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.case-risk-badge.critical {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+
+/* =========================================================
+   CASE METRICS
+========================================================= */
+
+.case-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid #eef2f6;
+}
+
+.case-metrics > div {
+  padding: 13px;
+  border-radius: 11px;
+  background: #f8fafc;
+}
+
+.case-metrics span {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.case-metrics strong {
+  font-size: 14px;
+  font-weight: 600;
+  color: #334155;
+}
+
+
+/* =========================================================
+   LOADING / ERROR
+========================================================= */
+
+.command-center-state {
+  padding: 70px 20px;
+  text-align: center;
+}
+
+.command-center-state p {
+  color: #64748b;
+}
+
+.command-center-state.error h2 {
+  margin-bottom: 8px;
+  color: #334155;
+}
+
+.command-center-state.error p {
+  color: #64748b;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 950px) {
+  .command-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .risk-distribution {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .case-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .command-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .risk-distribution {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .command-risk-overview,
+  .command-cases-section {
+    padding: 19px;
+  }
+
+  .case-main {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .case-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .command-center-header h1 {
+    font-size: 27px;
+  }
+}

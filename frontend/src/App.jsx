@@ -8,6 +8,7 @@ import Analytics from './components/Analytics'
 import History from './components/History'
 import DashboardLayout from './components/DashboardLayout'
 import './App.css'
+import CommandCenter from './components/CommandCenter'
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/history" element={<History />} />
             <Route path="/checkin" element={<WellnessCheckin />} />
             <Route path="/cbt-journal" element={<CBTJournal />} />
+            <Route path="/command-center" element={<CommandCenter />} />
           </Route>
 
           <Route

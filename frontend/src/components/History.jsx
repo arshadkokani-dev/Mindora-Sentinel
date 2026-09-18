@@ -55,7 +55,7 @@ function History() {
 
   if (loading) {
     return (
-      <main className="dashboard-content">
+      <div className="history-page">
         <section className="analytics-section">
           <div className="analytics-header">
             <p className="card-label">WELLNESS HISTORY</p>
@@ -63,13 +63,13 @@ function History() {
             <p>Loading your previous check-ins...</p>
           </div>
         </section>
-      </main>
+      </div>
     );
   }
 
   if (error) {
     return (
-      <main className="dashboard-content">
+      <div className="history-page">
         <section className="analytics-section">
           <div className="analytics-header">
             <p className="card-label">WELLNESS HISTORY</p>
@@ -77,13 +77,12 @@ function History() {
             <p>{error}</p>
           </div>
         </section>
-      </main>
+      </div>
     );
   }
 
   return (
-    <main className="dashboard-content">
-
+    <div className="history-page">
       <section className="analytics-section">
 
         <div className="analytics-header">
@@ -255,7 +254,7 @@ function History() {
 
       </section>
 
-    </main>
+    </div>
   );
 }
 

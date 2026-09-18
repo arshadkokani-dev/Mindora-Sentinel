@@ -1,43 +1,141 @@
 import User from "../models/User.js";
 import WellnessEntry from "../models/WellnessEntry.js";
+import CBTJournal from "../models/CBTJournal.js";
+
+import { calculateEscalation } from "../services/escalationService.js";
+import { calculateRiskAlert } from "../services/alertService.js";
+import { calculateIntervention } from "../services/interventionService.js";
+import { calculateEngagement } from "../services/engagementService.js";
+import { calculateCheckInStatus } from "../services/checkInService.js";
 
 export const getCommandCenter = async (req, res) => {
   try {
-    const authorizedRoles = ["caseworker", "counsellor", "admin"];
-
-    if (!authorizedRoles.includes(req.userRole)) {
-      return res.status(403).json({
-        message: "You do not have permission to access the Command Center",
-      });
-    }
-
     const users = await User.find({
       role: "victim",
-    }).select("_id name email role createdAt");
+    })
+      .select("_id name email createdAt")
+      .lean();
 
     const victimIds = users.map((user) => user._id);
 
-    const entries = await WellnessEntry.find({
+    const wellnessEntries = await WellnessEntry.find({
       user: { $in: victimIds },
     })
-      .sort({ date: -1 })
+      .sort({ date: 1 })
+      .lean();
+
+    const journalEntries = await CBTJournal.find({
+      user: { $in: victimIds },
+    })
+      .select("user date")
+      .sort({ date: 1 })
       .lean();
 
     const cases = users.map((user) => {
-      const userEntries = entries.filter(
-        (entry) => entry.user.toString() === user._id.toString()
+      const userWellnessEntries = wellnessEntries.filter(
+        (entry) =>
+          entry.user.toString() === user._id.toString()
       );
 
-      const latestEntry = userEntries[0] || null;
+      const userJournalEntries = journalEntries.filter(
+        (entry) =>
+          entry.user.toString() === user._id.toString()
+      );
+
+      const latestEntry =
+        userWellnessEntries[
+          userWellnessEntries.length - 1
+        ] || null;
+
+      const escalation = calculateEscalation(
+        userWellnessEntries
+      );
+
+      const riskAlert = calculateRiskAlert(
+        userWellnessEntries,
+        escalation
+      );
+
+      const intervention = calculateIntervention({
+        riskLevel: latestEntry?.riskLevel,
+        escalation,
+      });
+
+      const engagement = calculateEngagement({
+        wellnessEntries: userWellnessEntries,
+        journalEntries: userJournalEntries,
+      });
+
+      const checkInStatus = calculateCheckInStatus({
+        wellnessEntries: userWellnessEntries,
+      });
 
       return {
         caseId: user._id,
         name: user.name,
         email: user.email,
-        latestDistressScore: latestEntry?.distressScore ?? null,
-        riskLevel: latestEntry?.riskLevel ?? "No Data",
-        lastCheckIn: latestEntry?.date ?? null,
-        totalCheckIns: userEntries.length,
+
+        latestDistressScore:
+          latestEntry?.distressScore ?? null,
+
+        riskLevel:
+          latestEntry?.riskLevel ?? "No Data",
+
+        lastCheckIn:
+          latestEntry?.date ?? null,
+
+        totalCheckIns:
+          userWellnessEntries.length,
+
+        escalation: {
+          status: escalation.status,
+          severity: escalation.severity,
+          scoreChange: escalation.scoreChange,
+          consecutiveIncrease:
+            escalation.consecutiveIncrease,
+          highRiskCount:
+            escalation.highRiskCount,
+        },
+
+        riskAlert: {
+          alert: riskAlert.alert,
+          type: riskAlert.type,
+          severity: riskAlert.severity,
+          reasons: riskAlert.reasons,
+        },
+
+        intervention: {
+          priority: intervention.priority,
+          recommendations:
+            intervention.recommendations,
+        },
+
+        engagement: {
+          status: engagement.status,
+          trend: engagement.trend,
+          totalCheckIns:
+            engagement.totalCheckIns,
+          totalJournalEntries:
+            engagement.totalJournalEntries,
+          lastInteraction:
+            engagement.lastInteraction,
+          daysSinceLastInteraction:
+            engagement.daysSinceLastInteraction,
+        },
+
+        checkInStatus: {
+          status: checkInStatus.status,
+          intervalDays:
+            checkInStatus.intervalDays,
+          lastCheckIn:
+            checkInStatus.lastCheckIn,
+          nextCheckInDue:
+            checkInStatus.nextCheckInDue,
+          daysUntilDue:
+            checkInStatus.daysUntilDue,
+          daysOverdue:
+            checkInStatus.daysOverdue,
+        },
       };
     });
 
@@ -45,23 +143,47 @@ export const getCommandCenter = async (req, res) => {
       totalCases: cases.length,
 
       lowRisk: cases.filter(
-        (caseItem) => caseItem.riskLevel === "Low"
+        (caseItem) =>
+          caseItem.riskLevel === "Low"
       ).length,
 
       moderateRisk: cases.filter(
-        (caseItem) => caseItem.riskLevel === "Moderate"
+        (caseItem) =>
+          caseItem.riskLevel === "Moderate"
       ).length,
 
       highRisk: cases.filter(
-        (caseItem) => caseItem.riskLevel === "High"
+        (caseItem) =>
+          caseItem.riskLevel === "High"
       ).length,
 
       criticalRisk: cases.filter(
-        (caseItem) => caseItem.riskLevel === "Critical"
+        (caseItem) =>
+          caseItem.riskLevel === "Critical"
       ).length,
 
       noData: cases.filter(
-        (caseItem) => caseItem.riskLevel === "No Data"
+        (caseItem) =>
+          caseItem.riskLevel === "No Data"
+      ).length,
+
+      activeAlerts: cases.filter(
+        (caseItem) =>
+          caseItem.riskAlert.alert
+      ).length,
+
+      escalatingCases: cases.filter(
+        (caseItem) =>
+          caseItem.escalation.status ===
+            "Escalating" ||
+          caseItem.escalation.status ===
+            "Critical Escalation"
+      ).length,
+
+      overdueCheckIns: cases.filter(
+        (caseItem) =>
+          caseItem.checkInStatus.status ===
+          "Overdue"
       ).length,
     };
 
@@ -70,7 +192,10 @@ export const getCommandCenter = async (req, res) => {
       cases,
     });
   } catch (error) {
-    console.error("Command Center error:", error.message);
+    console.error(
+      "Command Center error:",
+      error.message
+    );
 
     res.status(500).json({
       message: "Server error",
