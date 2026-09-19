@@ -202,3 +202,158 @@ export const getCommandCenter = async (req, res) => {
     });
   }
 };
+
+export const getCaseDetails = async (req, res) => {
+  try {
+    const { caseId } = req.params
+
+    const user = await User.findOne({
+      _id: caseId,
+      role: "victim",
+    })
+      .select("_id name email createdAt")
+      .lean()
+
+    if (!user) {
+      return res.status(404).json({
+        message: "Case not found",
+      })
+    }
+
+    const wellnessEntries = await WellnessEntry.find({
+      user: user._id,
+    })
+      .sort({ date: 1 })
+      .lean()
+
+    const journalEntries = await CBTJournal.find({
+      user: user._id,
+    })
+      .select("date")
+      .sort({ date: 1 })
+      .lean()
+
+    const latestEntry =
+      wellnessEntries[wellnessEntries.length - 1] || null
+
+    const escalation = calculateEscalation(
+      wellnessEntries
+    )
+
+    const riskAlert = calculateRiskAlert(
+      wellnessEntries,
+      escalation
+    )
+
+    const intervention = calculateIntervention({
+      riskLevel: latestEntry?.riskLevel,
+      escalation,
+    })
+
+    const engagement = calculateEngagement({
+      wellnessEntries,
+      journalEntries,
+    })
+
+    const checkInStatus = calculateCheckInStatus({
+      wellnessEntries,
+    })
+
+    res.status(200).json({
+      case: {
+        caseId: user._id,
+        name: user.name,
+        email: user.email,
+        createdAt: user.createdAt,
+
+        latestDistressScore:
+          latestEntry?.distressScore ?? null,
+
+        riskLevel:
+          latestEntry?.riskLevel ?? "No Data",
+
+        lastCheckIn:
+          latestEntry?.date ?? null,
+
+        totalCheckIns:
+          wellnessEntries.length,
+
+        escalation: {
+          status: escalation.status,
+          severity: escalation.severity,
+          scoreChange: escalation.scoreChange,
+          consecutiveIncrease:
+            escalation.consecutiveIncrease,
+          highRiskCount:
+            escalation.highRiskCount,
+          reasons:
+            escalation.reasons,
+        },
+
+        riskAlert: {
+          alert: riskAlert.alert,
+          type: riskAlert.type,
+          severity: riskAlert.severity,
+          reasons: riskAlert.reasons,
+        },
+
+        intervention: {
+          priority: intervention.priority,
+          recommendations:
+            intervention.recommendations,
+        },
+
+        engagement: {
+          status: engagement.status,
+          trend: engagement.trend,
+          totalCheckIns:
+            engagement.totalCheckIns,
+          totalJournalEntries:
+            engagement.totalJournalEntries,
+          lastInteraction:
+            engagement.lastInteraction,
+          daysSinceLastInteraction:
+            engagement.daysSinceLastInteraction,
+        },
+
+        checkInStatus: {
+          status: checkInStatus.status,
+          intervalDays:
+            checkInStatus.intervalDays,
+          lastCheckIn:
+            checkInStatus.lastCheckIn,
+          nextCheckInDue:
+            checkInStatus.nextCheckInDue,
+          daysUntilDue:
+            checkInStatus.daysUntilDue,
+          daysOverdue:
+            checkInStatus.daysOverdue,
+        },
+      },
+
+      timeline: wellnessEntries.map((entry) => ({
+        id: entry._id,
+        date: entry.date,
+        mood: entry.mood,
+        energy: entry.energy,
+        sleep: entry.sleep,
+        stress: entry.stress,
+        anxiety: entry.anxiety,
+        emotion: entry.emotion,
+        distressScore:
+          entry.distressScore ?? null,
+        riskLevel:
+          entry.riskLevel ?? "No Data",
+      })),
+    })
+  } catch (error) {
+    console.error(
+      "Case details error:",
+      error.message
+    )
+
+    res.status(500).json({
+      message: "Server error",
+    })
+  }
+}

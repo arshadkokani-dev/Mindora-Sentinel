@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import '../styles/commandCenter.css'
+import { useNavigate } from 'react-router-dom'
 
 function CommandCenter() {
+  const navigate = useNavigate()
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -157,6 +159,9 @@ function CommandCenter() {
               <article
                 className="command-case-card"
                 key={caseItem.caseId}
+                onClick={() =>
+                  navigate(`/command-center/${caseItem.caseId}`)
+                }
               >
                 <div className="case-main">
                   <div>

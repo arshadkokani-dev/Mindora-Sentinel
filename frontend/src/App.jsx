@@ -9,6 +9,7 @@ import History from './components/History'
 import DashboardLayout from './components/DashboardLayout'
 import './App.css'
 import CommandCenter from './components/CommandCenter'
+import CaseDetails from './components/CaseDetails'
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/checkin" element={<WellnessCheckin />} />
             <Route path="/cbt-journal" element={<CBTJournal />} />
             <Route path="/command-center" element={<CommandCenter />} />
+            <Route path="/command-center/:caseId" element={<CaseDetails />} />
           </Route>
 
           <Route
