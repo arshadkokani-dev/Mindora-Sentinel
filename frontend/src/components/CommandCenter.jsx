@@ -64,7 +64,13 @@ function CommandCenter() {
   }
 
   const summary = data?.summary || {}
-  const cases = data?.cases || []
+  const priorityOrder = { Critical: 0, High: 1, Medium: 2, Low: 3 }
+
+  const cases = [...(data?.cases || [])].sort(
+    (a, b) =>
+      (priorityOrder[a.priority] ?? 4) -
+      (priorityOrder[b.priority] ?? 4)
+  )
 
   return (
     <div className="command-center-page">
@@ -169,13 +175,19 @@ function CommandCenter() {
                     <p>{caseItem.email}</p>
                   </div>
 
-                  <span
-                    className={`case-risk-badge ${caseItem.riskLevel
-                      .toLowerCase()
-                      .replace(/\s+/g, '-')}`}
-                  >
-                    {caseItem.riskLevel}
-                  </span>
+                  <div className="case-badges">
+                    <span
+                      className={`case-risk-badge ${caseItem.riskLevel
+                        .toLowerCase()
+                        .replace(/\s+/g, '-')}`}
+                    >
+                      {caseItem.riskLevel}
+                    </span>
+
+                    <span className={`case-priority ${caseItem.priority?.toLowerCase()}`}>
+                      {caseItem.priority || 'Low'} Priority
+                    </span>
+                  </div>
                 </div>
 
                 <div className="case-metrics">

@@ -7,6 +7,7 @@ import { calculateRiskAlert } from "../services/alertService.js";
 import { calculateIntervention } from "../services/interventionService.js";
 import { calculateEngagement } from "../services/engagementService.js";
 import { calculateCheckInStatus } from "../services/checkInService.js";
+import { calculateCasePriority } from "../services/casePriorityService.js";
 
 export const getCommandCenter = async (req, res) => {
   try {
@@ -70,10 +71,18 @@ export const getCommandCenter = async (req, res) => {
         wellnessEntries: userWellnessEntries,
       });
 
+      const priority = calculateCasePriority({
+        riskLevel: latestEntry?.riskLevel,
+        escalation,
+        riskAlert,
+        checkInStatus,
+      });
+
       return {
         caseId: user._id,
         name: user.name,
         email: user.email,
+        priority: priority,
 
         latestDistressScore:
           latestEntry?.distressScore ?? null,
