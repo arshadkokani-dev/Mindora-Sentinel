@@ -1,305 +1,198 @@
-/* =========================================================
-   CASE DETAILS
-========================================================= */
-
+/* Main case details layout */
 .case-details-page {
   width: 100%;
   max-width: 1180px;
   margin: 0 auto;
-  padding: 32px 32px 48px;
+  padding: 30px 34px 50px;
   box-sizing: border-box;
+  color: #1f2937;
 }
 
-
-/* =========================================================
-   HEADER
-========================================================= */
-
+/* Page header */
 .case-details-header {
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
 
 .case-back-button {
   border: none;
   background: transparent;
+  color: #64748b;
   padding: 0;
-  margin-bottom: 22px;
+  margin-bottom: 18px;
   font-size: 14px;
   font-weight: 600;
-  color: #4b5563;
   cursor: pointer;
 }
 
 .case-back-button:hover {
-  color: #111827;
+  color: #2563eb;
 }
 
-.case-details-title-row {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 24px;
+/* Victim identity card */
+.case-details-title {
+  position: relative;
+  padding: 26px 28px;
+  border-radius: 20px;
+  border: 1px solid #dbeafe;
+  background: linear-gradient(135deg, #eff6ff, #ffffff);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
 }
 
-.case-details-title-row h1 {
-  margin: 8px 0 6px;
-  font-size: 32px;
-  line-height: 1.2;
-  color: #111827;
+.case-details-title h1 {
+  margin: 8px 0 5px;
+  color: #0f172a;
+  font-size: 30px;
+  font-weight: 700;
 }
 
-.case-details-title-row p {
+.case-details-title p {
   margin: 0;
-  color: #6b7280;
-  font-size: 15px;
+  color: #64748b;
+  font-size: 14px;
 }
 
-.case-details-risk-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 82px;
-  padding: 8px 14px;
+.metric-label {
+  display: inline-block;
+  color: #64748b;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+/* Current risk badge */
+.case-details-risk {
+  position: absolute;
+  top: 26px;
+  right: 28px;
+  padding: 8px 16px;
   border-radius: 999px;
   font-size: 13px;
   font-weight: 700;
-  border: 1px solid #e5e7eb;
-  background: #f8fafc;
-  color: #374151;
-  white-space: nowrap;
 }
 
-.case-details-risk-badge.low {
-  background: #f0fdf4;
-  border-color: #bbf7d0;
+.case-details-risk.low {
+  background: #dcfce7;
   color: #15803d;
 }
 
-.case-details-risk-badge.moderate {
-  background: #fffbeb;
-  border-color: #fde68a;
+.case-details-risk.moderate {
+  background: #fef3c7;
   color: #a16207;
 }
 
-.case-details-risk-badge.high {
-  background: #fff7ed;
-  border-color: #fed7aa;
+.case-details-risk.high {
+  background: #ffedd5;
   color: #c2410c;
 }
 
-.case-details-risk-badge.critical {
-  background: #fef2f2;
-  border-color: #fecaca;
+.case-details-risk.critical {
+  background: #fee2e2;
   color: #b91c1c;
 }
 
-.case-details-risk-badge.no-data {
-  background: #f8fafc;
-  border-color: #e5e7eb;
+.case-details-risk.no-data {
+  background: #f1f5f9;
   color: #64748b;
 }
 
-
-/* =========================================================
-   SECTIONS
-========================================================= */
-
-.case-details-section {
-  margin-top: 24px;
-  padding: 26px;
-  border: 1px solid #e5e7eb;
-  border-radius: 18px;
-  background: #ffffff;
-  box-sizing: border-box;
-}
-
-.case-section-header {
-  margin-bottom: 20px;
-}
-
-.case-section-header h2 {
-  margin: 7px 0 6px;
-  font-size: 21px;
-  line-height: 1.3;
-  color: #1f2937;
-}
-
-.case-section-header p {
-  margin: 0;
-  max-width: 720px;
-  color: #6b7280;
-  line-height: 1.6;
-}
-
-
-/* =========================================================
-   CASE OVERVIEW
-========================================================= */
-
+/* Summary cards */
 .case-overview-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
+  gap: 15px;
+  margin-bottom: 22px;
 }
 
 .case-overview-card {
   min-height: 120px;
   padding: 20px;
-  border: 1px solid #e5e7eb;
-  border-radius: 14px;
-  background: #f8fafc;
-  box-sizing: border-box;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 5px 16px rgba(15, 23, 42, 0.05);
+  transition: 0.2s ease;
+}
+
+.case-overview-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 9px 22px rgba(15, 23, 42, 0.08);
 }
 
 .case-overview-card > span {
   display: block;
-  margin-bottom: 12px;
+  margin-bottom: 13px;
+  color: #64748b;
   font-size: 13px;
-  color: #6b7280;
 }
 
 .case-overview-card strong {
   display: block;
-  font-size: 25px;
+  color: #0f172a;
+  font-size: 27px;
   line-height: 1.2;
-  color: #1f2937;
 }
 
-.case-overview-card strong.low {
-  color: #15803d;
-}
-
-.case-overview-card strong.moderate {
-  color: #a16207;
-}
-
-.case-overview-card strong.high {
-  color: #c2410c;
-}
-
-.case-overview-card strong.critical {
-  color: #b91c1c;
-}
-
-.case-overview-card small {
-  display: block;
-  margin-top: 8px;
-  color: #9ca3af;
-  font-size: 12px;
-}
-
-
-/* =========================================================
-   INTELLIGENCE GRID
-========================================================= */
-
-.case-intelligence-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
-}
-
-.case-info-card {
-  padding: 20px;
-  border: 1px solid #e5e7eb;
-  border-radius: 14px;
+/* Content sections */
+.case-details-section {
+  margin-top: 22px;
+  padding: 25px;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
   background: #ffffff;
-  box-sizing: border-box;
+  box-shadow: 0 5px 18px rgba(15, 23, 42, 0.04);
 }
 
-.case-info-card h3 {
-  margin: 8px 0 18px;
-  font-size: 18px;
-  color: #1f2937;
+.case-section-header {
+  margin-bottom: 19px;
 }
 
-.case-info-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 10px 0;
-  border-top: 1px solid #f1f5f9;
+.case-section-header h2 {
+  margin: 6px 0 0;
+  color: #0f172a;
+  font-size: 21px;
+  font-weight: 700;
 }
 
-.case-info-row:first-of-type {
-  border-top: none;
-}
-
-.case-info-row span {
-  color: #6b7280;
-  font-size: 13px;
-}
-
-.case-info-row strong {
-  color: #374151;
-  font-size: 13px;
-  text-align: right;
-}
-
-.case-info-row strong.low {
-  color: #15803d;
-}
-
-.case-info-row strong.moderate {
-  color: #a16207;
-}
-
-.case-info-row strong.high {
-  color: #c2410c;
-}
-
-.case-info-row strong.critical {
-  color: #b91c1c;
-}
-
-
-/* =========================================================
-   ALERT
-========================================================= */
-
-.case-alert-panel {
-  padding: 20px;
-  border-radius: 14px;
-  border: 1px solid #e5e7eb;
-}
-
-.case-alert-panel.active {
-  background: #fff7ed;
-  border-color: #fed7aa;
-}
-
-.case-alert-panel.inactive {
-  background: #f8fafc;
-}
-
-.case-alert-panel strong {
-  display: block;
-  font-size: 16px;
-  color: #374151;
-}
-
-.case-alert-panel ul {
-  margin: 14px 0 0;
-  padding-left: 20px;
-}
-
-.case-alert-panel li {
-  margin: 7px 0;
-  color: #4b5563;
+.case-section-header p {
+  margin: 7px 0 0;
+  color: #64748b;
+  font-size: 14px;
   line-height: 1.5;
 }
 
+/* Risk intelligence cards */
+.case-intelligence-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
 
-/* =========================================================
-   RISK REASONING
-========================================================= */
-
-.case-reasoning-card {
-  padding: 20px;
-  border: 1px solid #e5e7eb;
-  border-radius: 14px;
+.case-info-card {
+  padding: 19px;
+  border: 1px solid #e2e8f0;
+  border-radius: 15px;
   background: #f8fafc;
+}
+
+.case-info-card h3 {
+  margin: 9px 0 14px;
+  color: #0f172a;
+  font-size: 18px;
+}
+
+.case-info-card p {
+  margin: 7px 0;
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+/* Explainable risk panel */
+.case-reasoning-card {
+  padding: 20px 22px;
+  border: 1px solid #bfdbfe;
+  border-radius: 15px;
+  background: #eff6ff;
 }
 
 .case-reasoning-card ul {
@@ -308,141 +201,176 @@
 }
 
 .case-reasoning-card li {
-  margin: 9px 0;
-  color: #4b5563;
+  margin: 8px 0;
+  color: #334155;
+  font-size: 14px;
   line-height: 1.55;
 }
 
 .case-reasoning-card p {
   margin: 0;
-  color: #6b7280;
-  line-height: 1.6;
+  color: #64748b;
+  font-size: 14px;
 }
 
-
-/* =========================================================
-   INTERVENTION
-========================================================= */
-
+/* Support recommendation cards */
 .case-intervention-list {
   display: grid;
-  gap: 16px;
+  gap: 14px;
 }
 
 .case-intervention-card {
   padding: 20px;
-  border: 1px solid #e5e7eb;
-  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 15px;
   background: #f8fafc;
 }
 
 .case-intervention-card h3 {
   margin: 8px 0;
-  font-size: 18px;
-  color: #1f2937;
+  color: #0f172a;
+  font-size: 17px;
 }
 
 .case-intervention-card > p {
   margin: 0;
-  color: #4b5563;
-  line-height: 1.6;
+  color: #475569;
+  font-size: 14px;
+  line-height: 1.55;
 }
 
 .case-intervention-reason {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  margin-top: 16px;
-  padding-top: 14px;
-  border-top: 1px solid #e5e7eb;
+  margin-top: 15px;
+  padding-top: 13px;
+  border-top: 1px solid #e2e8f0;
 }
 
 .case-intervention-reason strong {
-  font-size: 13px;
-  color: #374151;
+  display: block;
+  margin-bottom: 4px;
+  color: #475569;
+  font-size: 12px;
 }
 
 .case-intervention-reason span {
-  font-size: 14px;
-  color: #6b7280;
+  display: block;
+  color: #64748b;
+  font-size: 13px;
   line-height: 1.5;
 }
 
+.case-empty-card {
+  padding: 20px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 14px;
+  background: #f8fafc;
+  color: #64748b;
+  text-align: center;
+}
 
-/* =========================================================
-   TIMELINE
-========================================================= */
-
+/* Timeline container */
 .case-timeline {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
 }
 
 .case-timeline::before {
   content: "";
   position: absolute;
+  left: 5px;
   top: 12px;
   bottom: 12px;
-  left: 10px;
-  width: 1px;
-  background: #dbe2ea;
+  width: 2px;
+  background: #bfdbfe;
 }
 
 .case-timeline-item {
   position: relative;
   display: grid;
-  grid-template-columns: 22px minmax(0, 1fr);
+  grid-template-columns: 12px minmax(0, 1fr);
   gap: 16px;
 }
 
 .case-timeline-marker {
   position: relative;
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-  padding-top: 8px;
-}
-
-.case-timeline-marker span {
+  z-index: 2;
   width: 10px;
   height: 10px;
-  border: 2px solid #ffffff;
+  margin-top: 21px;
   border-radius: 50%;
-  background: #64748b;
-  box-shadow: 0 0 0 1px #cbd5e1;
+  background: #2563eb;
+  border: 3px solid #ffffff;
+  box-shadow: 0 0 0 1px #93c5fd;
 }
 
+/* Timeline entry card */
 .case-timeline-content {
-  padding: 20px;
-  border: 1px solid #e5e7eb;
-  border-radius: 14px;
+  padding: 19px;
+  border: 1px solid #e2e8f0;
+  border-radius: 15px;
   background: #ffffff;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
 }
 
 .case-timeline-header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  gap: 18px;
-  margin-bottom: 18px;
+  gap: 15px;
+  margin-bottom: 16px;
 }
 
 .case-timeline-header h3 {
-  margin: 7px 0 0;
-  font-size: 16px;
-  color: #1f2937;
+  margin: 6px 0 0;
+  color: #0f172a;
+  font-size: 15px;
+  font-weight: 600;
 }
 
+/* Timeline risk badge */
+.case-timeline-risk {
+  padding: 6px 11px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.case-timeline-risk.low {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.case-timeline-risk.moderate {
+  background: #fef3c7;
+  color: #a16207;
+}
+
+.case-timeline-risk.high {
+  background: #ffedd5;
+  color: #c2410c;
+}
+
+.case-timeline-risk.critical {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.case-timeline-risk.no-data {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+/* Timeline metrics */
 .case-timeline-metrics {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 10px;
+  gap: 8px;
 }
 
 .case-timeline-metrics > div {
-  padding: 12px;
+  padding: 11px 7px;
   border-radius: 10px;
   background: #f8fafc;
   text-align: center;
@@ -451,78 +379,56 @@
 .case-timeline-metrics span {
   display: block;
   margin-bottom: 5px;
-  font-size: 11px;
-  color: #6b7280;
+  color: #94a3b8;
+  font-size: 10px;
 }
 
 .case-timeline-metrics strong {
-  font-size: 15px;
-  color: #374151;
+  color: #334155;
+  font-size: 14px;
 }
 
+/* Emotion shown below each timeline entry */
 .case-timeline-emotion {
-  margin-top: 16px;
-  padding-top: 14px;
-  border-top: 1px solid #eef0f3;
+  margin-top: 14px;
+  padding-top: 13px;
+  border-top: 1px solid #e2e8f0;
 }
 
 .case-timeline-emotion p {
-  margin: 7px 0 0;
-  color: #4b5563;
-  line-height: 1.5;
+  margin: 5px 0 0;
+  color: #475569;
+  font-size: 13px;
 }
 
-
-/* =========================================================
-   EMPTY / STATE
-========================================================= */
-
-.case-empty-card {
-  padding: 24px;
-  border: 1px dashed #d1d5db;
-  border-radius: 14px;
-  background: #f8fafc;
-  text-align: center;
-}
-
-.case-empty-card h3 {
-  margin: 0 0 7px;
-  color: #374151;
-}
-
-.case-empty-card p {
-  margin: 0;
-  color: #6b7280;
-  line-height: 1.5;
-}
-
+/* Loading and error states */
 .case-details-state {
   min-height: 420px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 10px;
   text-align: center;
 }
 
 .case-details-state p {
   margin: 0;
-  color: #6b7280;
+  color: #64748b;
 }
 
 .case-details-state h2 {
   margin: 0;
-  color: #1f2937;
+  color: #0f172a;
 }
 
 .case-details-state button {
   margin-top: 8px;
   padding: 10px 16px;
-  border: 1px solid #d1d5db;
+  border: 1px solid #cbd5e1;
   border-radius: 9px;
   background: #ffffff;
-  color: #374151;
+  color: #334155;
   font-weight: 600;
   cursor: pointer;
 }
@@ -531,26 +437,7 @@
   background: #f8fafc;
 }
 
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
-.case-details-footer {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  margin-top: 24px;
-  padding: 16px 4px;
-  color: #9ca3af;
-  font-size: 12px;
-}
-
-
-/* =========================================================
-   RESPONSIVE — TABLET
-========================================================= */
-
+/* Tablet layout */
 @media (max-width: 1000px) {
   .case-overview-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -565,27 +452,24 @@
   }
 }
 
-
-/* =========================================================
-   RESPONSIVE — MOBILE
-========================================================= */
-
-@media (max-width: 700px) {
+/* Mobile layout */
+@media (max-width: 650px) {
   .case-details-page {
-    padding: 24px 18px 40px;
+    padding: 22px 16px 40px;
   }
 
-  .case-details-section {
-    padding: 20px;
+  .case-details-title {
+    padding: 22px;
   }
 
-  .case-details-title-row {
-    flex-direction: column;
-    gap: 14px;
+  .case-details-title h1 {
+    font-size: 26px;
   }
 
-  .case-details-title-row h1 {
-    font-size: 27px;
+  .case-details-risk {
+    position: static;
+    display: inline-block;
+    margin-top: 15px;
   }
 
   .case-overview-grid,
@@ -593,49 +477,31 @@
     grid-template-columns: 1fr;
   }
 
-  .case-timeline-metrics {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .case-details-section {
+    padding: 20px;
   }
 
   .case-timeline-header {
+    align-items: flex-start;
     flex-direction: column;
-  }
-
-  .case-details-footer {
-    flex-direction: column;
-  }
-}
-
-
-/* =========================================================
-   RESPONSIVE — SMALL MOBILE
-========================================================= */
-
-@media (max-width: 420px) {
-  .case-details-page {
-    padding: 20px 14px 32px;
-  }
-
-  .case-details-section {
-    padding: 16px;
-    border-radius: 14px;
-  }
-
-  .case-timeline-content {
-    padding: 16px;
   }
 
   .case-timeline-metrics {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Small phone layout */
+@media (max-width: 420px) {
+  .case-details-page {
+    padding: 18px 12px 32px;
   }
 
-  .case-info-row {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 4px;
+  .case-details-section {
+    padding: 17px;
   }
 
-  .case-info-row strong {
-    text-align: left;
+  .case-timeline-content {
+    padding: 15px;
   }
 }
