@@ -8,6 +8,7 @@ import { calculateIntervention } from "../services/interventionService.js";
 import { calculateEngagement } from "../services/engagementService.js";
 import { calculateCheckInStatus } from "../services/checkInService.js";
 import { calculateCasePriority } from "../services/casePriorityService.js";
+import { createOrUpdateAlert } from "../services/alertManagementService.js";
 
 export const getCommandCenter = async (req, res) => {
   try {
@@ -32,7 +33,8 @@ export const getCommandCenter = async (req, res) => {
       .sort({ date: 1 })
       .lean();
 
-    const cases = users.map((user) => {
+    const cases = await Promise.all(
+    users.map(async (user) => {
       const userWellnessEntries = wellnessEntries.filter(
         (entry) =>
           entry.user.toString() === user._id.toString()
@@ -56,6 +58,11 @@ export const getCommandCenter = async (req, res) => {
         userWellnessEntries,
         escalation
       );
+
+      await createOrUpdateAlert({
+        caseId: user._id,
+        riskAlert,
+      });
 
       const intervention = calculateIntervention({
         riskLevel: latestEntry?.riskLevel,
@@ -146,7 +153,8 @@ export const getCommandCenter = async (req, res) => {
             checkInStatus.daysOverdue,
         },
       };
-    });
+    })
+  );
 
     const summary = {
       totalCases: cases.length,

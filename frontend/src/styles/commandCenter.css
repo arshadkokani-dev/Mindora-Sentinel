@@ -389,3 +389,90 @@
 .case-priority.high { background:#ffedd5; color:#c2410c; }
 .case-priority.medium { background:#fef3c7; color:#a16207; }
 .case-priority.low { background:#dcfce7; color:#15803d; }
+
+/* Alert management */
+
+.command-alert-list {
+  display: grid;
+  gap: 14px;
+}
+
+.command-alert-card {
+  padding: 18px;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid #f59e0b;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.command-alert-main {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.command-alert-main h3 {
+  margin: 5px 0;
+  color: #172033;
+  font-size: 17px;
+}
+
+.command-alert-main p {
+  margin: 0;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.alert-severity {
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: #fef3c7;
+  color: #a16207;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.command-alert-reasons {
+  margin-top: 14px;
+  padding: 12px;
+  border-radius: 10px;
+  background: #f8fafc;
+  color: #475569;
+  font-size: 13px;
+}
+
+.command-alert-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid #eef2f6;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.command-alert-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.command-alert-actions button {
+  padding: 7px 12px;
+  border: 0;
+  border-radius: 8px;
+  background: #172033;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.command-alert-empty {
+  padding: 30px 20px;
+  text-align: center;
+  border: 1px dashed #cbd5e1;
+  border-radius: 14px;
+  background: #f8fafc;
+}

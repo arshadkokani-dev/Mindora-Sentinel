@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 function CommandCenter() {
   const navigate = useNavigate()
   const [data, setData] = useState(null)
+  const [alerts, setAlerts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
@@ -13,24 +14,39 @@ function CommandCenter() {
       try {
         const token = localStorage.getItem('token')
 
-        const response = await fetch(
+        const headers = {
+          Authorization: `Bearer ${token}`,
+        }
+
+        const casesResponse = await fetch(
           'http://localhost:5000/api/cases',
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+          { headers }
         )
 
-        const result = await response.json()
+        const casesResult = await casesResponse.json()
 
-        if (!response.ok) {
+        if (!casesResponse.ok) {
           throw new Error(
-            result.message || 'Failed to load Command Center'
+            casesResult.message || 'Failed to load Command Center'
           )
         }
 
-        setData(result)
+        setData(casesResult)
+
+        const alertsResponse = await fetch(
+          'http://localhost:5000/api/alerts',
+          { headers }
+        )
+
+        const alertsResult = await alertsResponse.json()
+
+        if (!alertsResponse.ok) {
+          throw new Error(
+            alertsResult.message || 'Failed to load alerts'
+          )
+        }
+
+        setAlerts(alertsResult.alerts || [])
       } catch (error) {
         console.error('Command Center error:', error)
         setError(error.message)
@@ -41,6 +57,41 @@ function CommandCenter() {
 
     fetchCommandCenter()
   }, [])
+
+  const updateAlert = async (alertId, action, actionNote = '') => {
+    try {
+      const token = localStorage.getItem('token')
+
+      const response = await fetch(
+        `http://localhost:5000/api/alerts/${alertId}/${action}`,
+        {
+          method: 'PATCH',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ actionNote }),
+        }
+      )
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(
+          result.message || 'Failed to update alert'
+        )
+      }
+
+      setAlerts((currentAlerts) =>
+        currentAlerts.map((alert) =>
+          alert._id === alertId ? result.alert : alert
+        )
+      )
+    } catch (error) {
+      console.error('Alert update error:', error)
+      setError(error.message)
+    }
+}
 
   if (loading) {
     return (
@@ -105,6 +156,118 @@ function CommandCenter() {
           <span>Overdue Check-ins</span>
           <strong>{summary.overdueCheckIns ?? 0}</strong>
         </div>
+      </section>
+
+      <section className="command-alerts-section">
+        <div className="command-section-header">
+          <div>
+            <span className="metric-label">ALERT MANAGEMENT</span>
+            <h2>Active Alerts</h2>
+          </div>
+        </div>
+
+        {alerts.length === 0 ? (
+          <div className="command-alert-empty">
+            <h3>No active alerts</h3>
+            <p>
+              There are currently no active risk alerts requiring attention.
+            </p>
+          </div>
+        ) : (
+          <div className="command-alert-list">
+            {alerts.map((alert) => (
+              <article
+                className={`command-alert-card ${alert.severity.toLowerCase()}`}
+                key={alert._id}
+              >
+                <div className="command-alert-main">
+                  <div>
+                    <span className="alert-type">
+                      {alert.type}
+                    </span>
+
+                    <h3>
+                      {alert.caseId?.name || "Unknown Case"}
+                    </h3>
+
+                    <p>
+                      {alert.caseId?.email || ""}
+                    </p>
+                  </div>
+
+                  <span className="alert-severity">
+                    {alert.severity}
+                  </span>
+                </div>
+
+                <div className="command-alert-reasons">
+                  <strong>Reason</strong>
+
+                  {alert.reasons?.map((reason, index) => (
+                    <p key={index}>{reason}</p>
+                  ))}
+                </div>
+
+                <div className="command-alert-footer">
+                <div>
+                  <span>
+                    Status: {alert.status}
+                  </span>
+
+                  <span>
+                    {new Date(alert.createdAt).toLocaleString()}
+                  </span>
+                </div>
+
+                <div className="command-alert-actions">
+                  {alert.status === 'Active' && (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        updateAlert(alert._id, 'acknowledge')
+                      }
+                    >
+                      Acknowledge
+                    </button>
+                  )}
+
+                  {alert.status === 'Acknowledged' && (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        updateAlert(alert._id, 'review')
+                      }
+                    >
+                      Start Review
+                    </button>
+                  )}
+
+                  {alert.status === 'Under Review' && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const actionNote = window.prompt(
+                          'Enter the human action taken:'
+                        )
+
+                        if (actionNote !== null) {
+                          updateAlert(
+                            alert._id,
+                            'resolve',
+                            actionNote
+                          )
+                        }
+                      }}
+                    >
+                      Resolve
+                    </button>
+                  )}
+                </div>
+              </div>
+              </article>
+            ))}
+          </div>
+        )}
       </section>
 
       <section className="command-risk-overview">
