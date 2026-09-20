@@ -558,3 +558,33 @@
   color: #64748b;
   font-size: 12px;
 }
+
+/* Case lifecycle */
+
+.case-status-control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid #eef2f6;
+}
+
+.case-status-control label {
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.case-status-control select {
+  min-width: 150px;
+  padding: 7px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #fff;
+  color: #172033;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}

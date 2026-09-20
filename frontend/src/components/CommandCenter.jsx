@@ -109,6 +109,47 @@ function CommandCenter() {
     }
 }
 
+const updateCaseStatus = async (caseId, status) => {
+  try {
+    const token = localStorage.getItem('token')
+
+    const response = await fetch(
+      `http://localhost:5000/api/case-lifecycle/${caseId}/status`,
+      {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ status }),
+      }
+    )
+
+    const result = await response.json()
+
+    if (!response.ok) {
+      throw new Error(
+        result.message || 'Failed to update case status'
+      )
+    }
+
+    setData((currentData) => ({
+      ...currentData,
+      cases: currentData.cases.map((caseItem) =>
+        caseItem.caseId === caseId
+          ? {
+              ...caseItem,
+              caseStatus: result.case.caseStatus,
+            }
+          : caseItem
+      ),
+    }))
+  } catch (error) {
+    console.error('Case status update error:', error)
+    setError(error.message)
+  }
+}
+
   if (loading) {
     return (
       <main className="command-center-page">
@@ -467,6 +508,39 @@ function CommandCenter() {
                       {caseItem.checkInStatus?.status || '—'}
                     </strong>
                   </div>
+
+                  <div>
+                  <span>Case Status</span>
+                  <strong>
+                    {caseItem.caseStatus || 'Open'}
+                  </strong>
+
+                  <div className="case-status-control">
+                  <label htmlFor={`case-status-${caseItem.caseId}`}>
+                    Case Status
+                  </label>
+
+                  <select
+                    id={`case-status-${caseItem.caseId}`}
+                    value={caseItem.caseStatus || 'Open'}
+                    onChange={(event) =>
+                      updateCaseStatus(
+                        caseItem.caseId,
+                        event.target.value
+                      )
+                    }
+                    onClick={(event) => event.stopPropagation()}
+                  >
+                    <option value="Open">Open</option>
+                    <option value="Under Review">Under Review</option>
+                    <option value="Active Support">Active Support</option>
+                    <option value="Resolved">Resolved</option>
+                    <option value="Closed">Closed</option>
+                  </select>
+                </div>
+
+                </div>
+
                 </div>
               </article>
             ))}

@@ -15,7 +15,7 @@ export const getCommandCenter = async (req, res) => {
     const users = await User.find({
       role: "victim",
     })
-      .select("_id name email createdAt")
+      .select("_id name email createdAt caseStatus")
       .lean();
 
     const victimIds = users.map((user) => user._id);
@@ -90,6 +90,7 @@ export const getCommandCenter = async (req, res) => {
         name: user.name,
         email: user.email,
         priority: priority,
+        caseStatus: user.caseStatus,
 
         latestDistressScore:
           latestEntry?.distressScore ?? null,
@@ -228,7 +229,7 @@ export const getCaseDetails = async (req, res) => {
       _id: caseId,
       role: "victim",
     })
-      .select("_id name email createdAt")
+      .select("_id name email createdAt caseStatus")
       .lean()
 
     if (!user) {
@@ -282,6 +283,7 @@ export const getCaseDetails = async (req, res) => {
         name: user.name,
         email: user.email,
         createdAt: user.createdAt,
+        caseStatus: user.caseStatus,
 
         latestDistressScore:
           latestEntry?.distressScore ?? null,
