@@ -286,6 +286,76 @@ function CommandCenter() {
         )}
       </section>
 
+      <section className="command-interventions-section">
+        <div className="command-section-header">
+          <div>
+            <span className="metric-label">INTERVENTION MANAGEMENT</span>
+            <h2>Case Interventions</h2>
+          </div>
+        </div>
+
+        {interventions.length === 0 ? (
+          <div className="command-empty-state">
+            <h3>No interventions</h3>
+            <p>
+              There are currently no interventions assigned to cases.
+            </p>
+          </div>
+        ) : (
+          <div className="command-intervention-list">
+            {interventions.map((intervention) => (
+              <article
+                className="command-intervention-card"
+                key={intervention._id}
+              >
+                <div className="command-intervention-main">
+                  <div>
+                    <span className="intervention-type">
+                      {intervention.type}
+                    </span>
+
+                    <h3>
+                      {intervention.caseId?.name || "Unknown Case"}
+                    </h3>
+
+                    <p>
+                      {intervention.title}
+                    </p>
+                  </div>
+
+                  <div className="intervention-badges">
+                    <span className="intervention-priority">
+                      {intervention.priority}
+                    </span>
+
+                    <span className="intervention-status">
+                      {intervention.status}
+                    </span>
+                  </div>
+                </div>
+
+                {intervention.description && (
+                  <p className="command-intervention-description">
+                    {intervention.description}
+                  </p>
+                )}
+
+                <div className="command-intervention-footer">
+                  <span>
+                    Assigned to:{" "}
+                    {intervention.assignedTo?.name || "Unassigned"}
+                  </span>
+
+                  <span>
+                    {new Date(intervention.createdAt).toLocaleString()}
+                  </span>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+      </section>
+
       <section className="command-risk-overview">
         <div className="command-section-header">
           <div>
