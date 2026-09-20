@@ -26,6 +26,17 @@ const userSchema = new mongoose.Schema(
       enum: ["victim", "caseworker", "counsellor", "admin"],
       default: "victim",
     },
+    caseStatus: {
+      type: String,
+      enum: [
+        "Open",
+        "Under Review",
+        "Active Support",
+        "Resolved",
+        "Closed",
+      ],
+      default: "Open",
+},
   },
   {
     timestamps: true,

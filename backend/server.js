@@ -12,6 +12,7 @@ import analyticsRoutes from "./routes/analyticsRoutes.js";
 import commandCenterRoutes from "./routes/commandCenterRoutes.js";
 import alertRoutes from "./routes/alertRoutes.js";
 import interventionRoutes from "./routes/interventionRoutes.js";
+import caseLifecycleRoutes from "./routes/caseLifecycleRoutes.js";
 
 dotenv.config();
 
@@ -26,6 +27,7 @@ app.use("/api/analytics", analyticsRoutes);
 app.use("/api/cases", commandCenterRoutes);
 app.use("/api/alerts", alertRoutes);
 app.use("/api/interventions", interventionRoutes);
+app.use("/api/case-lifecycle", caseLifecycleRoutes);
 
 const PORT = process.env.PORT || 5000;
 
