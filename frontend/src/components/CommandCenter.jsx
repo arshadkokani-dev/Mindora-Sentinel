@@ -6,6 +6,7 @@ function CommandCenter() {
   const navigate = useNavigate()
   const [data, setData] = useState(null)
   const [alerts, setAlerts] = useState([])
+  const [interventions, setInterventions] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
@@ -47,6 +48,21 @@ function CommandCenter() {
         }
 
         setAlerts(alertsResult.alerts || [])
+
+        const interventionsResponse = await fetch(
+        'http://localhost:5000/api/interventions',
+        { headers }
+      )
+
+      const interventionsResult = await interventionsResponse.json()
+
+      if (!interventionsResponse.ok) {
+        throw new Error(
+          interventionsResult.message || 'Failed to load interventions'
+        )
+      }
+
+      setInterventions(interventionsResult.interventions || [])
       } catch (error) {
         console.error('Command Center error:', error)
         setError(error.message)
