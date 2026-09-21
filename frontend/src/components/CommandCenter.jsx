@@ -9,6 +9,7 @@ function CommandCenter() {
   const [interventions, setInterventions] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [caseStatusFilter, setCaseStatusFilter] = useState('All')
 
   useEffect(() => {
     const fetchCommandCenter = async () => {
@@ -450,8 +451,32 @@ const updateCaseStatus = async (caseId, status) => {
             </p>
           </div>
         ) : (
+          <>
+          <div className="case-filter-control">
+            <label htmlFor="case-status-filter">Filter by Status</label>
+
+            <select
+              id="case-status-filter"
+              value={caseStatusFilter}
+              onChange={(event) => setCaseStatusFilter(event.target.value)}
+            >
+              <option value="All">All</option>
+              <option value="Open">Open</option>
+              <option value="Under Review">Under Review</option>
+              <option value="Active Support">Active Support</option>
+              <option value="Resolved">Resolved</option>
+              <option value="Closed">Closed</option>
+            </select>
+          </div>
+
           <div className="command-case-list">
-            {cases.map((caseItem) => (
+            {cases
+              .filter(
+                (caseItem) =>
+                  caseStatusFilter === 'All' ||
+                  (caseItem.caseStatus || 'Open') === caseStatusFilter
+              )
+              .map((caseItem) => (
               <article
                 className="command-case-card"
                 key={caseItem.caseId}
@@ -545,7 +570,7 @@ const updateCaseStatus = async (caseId, status) => {
               </article>
             ))}
           </div>
-        )}
+          </>)}
       </section>
     </div>
   )
