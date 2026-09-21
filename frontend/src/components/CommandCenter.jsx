@@ -6,6 +6,7 @@ function CommandCenter() {
   const navigate = useNavigate()
   const [data, setData] = useState(null)
   const [alerts, setAlerts] = useState([])
+  const [interventionStatusFilter, setInterventionStatusFilter] = useState('All')
   const [interventions, setInterventions] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -233,7 +234,9 @@ const updateCaseStatus = async (caseId, status) => {
           </div>
         ) : (
           <div className="command-alert-list">
-            {alerts.map((alert) => (
+            {alerts
+              .filter((alert) => alert.status !== 'Resolved')
+              .map((alert) => (
               <article
                 className={`command-alert-card ${alert.severity.toLowerCase()}`}
                 key={alert._id}
@@ -344,8 +347,35 @@ const updateCaseStatus = async (caseId, status) => {
             </p>
           </div>
         ) : (
+          <>
+          <div className="case-filter-control">
+            <label htmlFor="intervention-status-filter">
+              Filter by Status
+            </label>
+
+            <select
+              id="intervention-status-filter"
+              value={interventionStatusFilter}
+              onChange={(event) =>
+                setInterventionStatusFilter(event.target.value)
+              }
+            >
+              <option value="All">All</option>
+              <option value="Pending">Pending</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Completed">Completed</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
+          </div>
+          
           <div className="command-intervention-list">
-            {interventions.map((intervention) => (
+            {interventions
+              .filter(
+                (intervention) =>
+                  interventionStatusFilter === 'All' ||
+                  intervention.status === interventionStatusFilter
+              )
+              .map((intervention) => (
               <article
                 className="command-intervention-card"
                 key={intervention._id}
@@ -395,6 +425,7 @@ const updateCaseStatus = async (caseId, status) => {
               </article>
             ))}
           </div>
+          </>
         )}
       </section>
 
