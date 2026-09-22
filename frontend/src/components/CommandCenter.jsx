@@ -485,6 +485,45 @@ const updateCaseStatus = async (caseId, status) => {
         })()}
       </section>
 
+      <section className="command-hierarchy">
+        <div className="command-section-header">
+          <div>
+            <span className="metric-label">ADMINISTRATIVE HIERARCHY</span>
+            <h2>National → State → District</h2>
+          </div>
+        </div>
+
+        <div className="hierarchy-national">
+          <strong>
+            {data?.hierarchy?.national?.totalCases ?? 0}
+          </strong>
+          <span>Cases across India</span>
+        </div>
+
+        <div className="hierarchy-states">
+          {Object.values(data?.hierarchy?.states || {}).map((stateItem) => (
+            <div className="hierarchy-state" key={stateItem.state}>
+              <div className="hierarchy-state-header">
+                <strong>{stateItem.state}</strong>
+                <span>{stateItem.totalCases} cases</span>
+              </div>
+
+              <div className="hierarchy-districts">
+                {Object.values(stateItem.districts).map((districtItem) => (
+                  <div
+                    className="hierarchy-district"
+                    key={`${stateItem.state}-${districtItem.district}`}
+                  >
+                    <span>{districtItem.district}</span>
+                    <strong>{districtItem.totalCases}</strong>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <section className="command-cases-section">
         <div className="command-section-header">
           <div>

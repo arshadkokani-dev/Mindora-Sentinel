@@ -15,7 +15,7 @@ export const getCommandCenter = async (req, res) => {
     const users = await User.find({
       role: "victim",
     })
-      .select("_id name email createdAt caseStatus")
+      .select("_id name email createdAt caseStatus district state country")
       .lean();
 
     const victimIds = users.map((user) => user._id);
@@ -91,6 +91,9 @@ export const getCommandCenter = async (req, res) => {
         email: user.email,
         priority: priority,
         caseStatus: user.caseStatus,
+        district: user.district || "",
+        state: user.state || "",
+        country: user.country || "India",
 
         latestDistressScore:
           latestEntry?.distressScore ?? null,
@@ -157,6 +160,38 @@ export const getCommandCenter = async (req, res) => {
     })
   );
 
+    const hierarchy = {
+      national: {
+        country: "India",
+        totalCases: cases.length,
+      },
+      states: {},
+    };
+
+    cases.forEach((caseItem) => {
+      const state = caseItem.state || "Unassigned";
+      const district = caseItem.district || "Unassigned";
+
+      if (!hierarchy.states[state]) {
+        hierarchy.states[state] = {
+          state,
+          totalCases: 0,
+          districts: {},
+        };
+      }
+
+      hierarchy.states[state].totalCases += 1;
+
+      if (!hierarchy.states[state].districts[district]) {
+        hierarchy.states[state].districts[district] = {
+          district,
+          totalCases: 0,
+        };
+      }
+
+      hierarchy.states[state].districts[district].totalCases += 1;
+    });
+    
     const summary = {
       totalCases: cases.length,
 
@@ -208,6 +243,7 @@ export const getCommandCenter = async (req, res) => {
     res.status(200).json({
       summary,
       cases,
+      hierarchy,
     });
   } catch (error) {
     console.error(

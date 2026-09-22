@@ -26,6 +26,25 @@ const userSchema = new mongoose.Schema(
       enum: ["victim", "caseworker", "counsellor", "admin"],
       default: "victim",
     },
+
+    district: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+
+    state: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+
+    country: {
+      type: String,
+      trim: true,
+      default: "India",
+    },
+
     caseStatus: {
       type: String,
       enum: [
