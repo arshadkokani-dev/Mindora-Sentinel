@@ -1,17 +1,26 @@
 import {
   updateCaseStatus,
 } from "../services/caseLifecycleService.js";
+import { createAuditLog } from "../services/auditService.js";
 
 export const updateCaseLifecycle = async (req, res) => {
   try {
     const { status } = req.body;
 
     const caseUser = await updateCaseStatus({
-      caseId: req.params.caseId,
-      status,
-    });
+        caseId: req.params.caseId,
+        status,
+      });
 
-    res.status(200).json({
+      await createAuditLog({
+        actor: req.userId,
+        actorRole: req.userRole,
+        action: "CASE_STATUS_UPDATED",
+        caseId: caseUser._id,
+        details: `Case status changed to ${caseUser.caseStatus}.`,
+      });
+
+      res.status(200).json({
       message: "Case status updated",
       case: {
         caseId: caseUser._id,
