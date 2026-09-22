@@ -621,55 +621,160 @@
 
 .command-hierarchy {
   margin-top: 24px;
+  padding: 22px;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  background: #ffffff;
 }
+
+.command-hierarchy .command-section-header {
+  margin-bottom: 18px;
+}
+
+.command-hierarchy .command-section-header h2 {
+  margin-top: 5px;
+  font-size: 22px;
+}
+
+/* National */
 
 .hierarchy-national {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px;
-  margin-bottom: 12px;
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  background: #f8fafc;
+  gap: 18px;
+  padding: 20px;
+  margin-bottom: 16px;
+  border: 1px solid #dbeafe;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #f8fbff, #eef6ff);
+}
+
+.hierarchy-national > div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .hierarchy-national strong {
-  font-size: 24px;
+  font-size: 30px;
+  line-height: 1;
+  color: #172033;
 }
 
 .hierarchy-national span {
   color: #64748b;
   font-size: 12px;
+  font-weight: 600;
 }
+
+/* Risk numbers */
+
+.hierarchy-risk-summary,
+.hierarchy-state-metrics,
+.hierarchy-district > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.hierarchy-risk-summary span,
+.hierarchy-state-metrics span,
+.hierarchy-district > div span {
+  padding: 6px 9px;
+  border-radius: 7px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* State */
 
 .hierarchy-state {
-  padding: 14px;
-  margin-bottom: 10px;
+  padding: 16px;
+  margin-bottom: 12px;
   border: 1px solid #e2e8f0;
-  border-radius: 10px;
+  border-radius: 13px;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
 }
 
-.hierarchy-state-header,
-.hierarchy-district {
+.hierarchy-state-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
+}
+
+.hierarchy-state-header strong {
+  color: #172033;
+  font-size: 15px;
 }
 
 .hierarchy-state-header span {
-  color: #64748b;
-  font-size: 12px;
+  padding: 5px 9px;
+  border-radius: 7px;
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 11px;
+  font-weight: 700;
 }
 
-.hierarchy-districts {
+.hierarchy-state-metrics {
   margin-top: 10px;
+}
+
+/* District */
+
+.hierarchy-districts {
+  margin-top: 14px;
   padding-left: 14px;
 }
 
 .hierarchy-district {
-  padding: 7px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 11px 0;
   border-top: 1px solid #f1f5f9;
-  color: #475569;
+}
+
+.hierarchy-district > span {
+  color: #334155;
   font-size: 12px;
+  font-weight: 600;
+}
+
+.hierarchy-district > div {
+  justify-content: flex-end;
+}
+
+.hierarchy-district > div span {
+  background: #f8fafc;
+}
+
+/* Make the hierarchy comfortable on smaller screens */
+
+@media (max-width: 700px) {
+  .hierarchy-national {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .hierarchy-risk-summary {
+    width: 100%;
+  }
+
+  .hierarchy-district {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .hierarchy-district > div {
+    justify-content: flex-start;
+  }
 }

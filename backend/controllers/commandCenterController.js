@@ -164,6 +164,10 @@ export const getCommandCenter = async (req, res) => {
       national: {
         country: "India",
         totalCases: cases.length,
+        highRisk: 0,
+        criticalRisk: 0,
+        activeAlerts: 0,
+        escalatingCases: 0,
       },
       states: {},
     };
@@ -172,26 +176,95 @@ export const getCommandCenter = async (req, res) => {
       const state = caseItem.state || "Unassigned";
       const district = caseItem.district || "Unassigned";
 
+      const isHighRisk =
+        caseItem.riskLevel === "High";
+
+      const isCriticalRisk =
+        caseItem.riskLevel === "Critical";
+
+      const hasActiveAlert =
+        caseItem.riskAlert?.alert === true;
+
+      const isEscalating =
+        caseItem.escalation?.status === "Escalating" ||
+        caseItem.escalation?.status === "Critical Escalation";
+
+      if (isHighRisk) {
+        hierarchy.national.highRisk += 1;
+      }
+
+      if (isCriticalRisk) {
+        hierarchy.national.criticalRisk += 1;
+      }
+
+      if (hasActiveAlert) {
+        hierarchy.national.activeAlerts += 1;
+      }
+
+      if (isEscalating) {
+        hierarchy.national.escalatingCases += 1;
+      }
+
       if (!hierarchy.states[state]) {
         hierarchy.states[state] = {
           state,
           totalCases: 0,
+          highRisk: 0,
+          criticalRisk: 0,
+          activeAlerts: 0,
+          escalatingCases: 0,
           districts: {},
         };
       }
 
       hierarchy.states[state].totalCases += 1;
 
+      if (isHighRisk) {
+        hierarchy.states[state].highRisk += 1;
+      }
+
+      if (isCriticalRisk) {
+        hierarchy.states[state].criticalRisk += 1;
+      }
+
+      if (hasActiveAlert) {
+        hierarchy.states[state].activeAlerts += 1;
+      }
+
+      if (isEscalating) {
+        hierarchy.states[state].escalatingCases += 1;
+      }
+
       if (!hierarchy.states[state].districts[district]) {
         hierarchy.states[state].districts[district] = {
           district,
           totalCases: 0,
+          highRisk: 0,
+          criticalRisk: 0,
+          activeAlerts: 0,
+          escalatingCases: 0,
         };
       }
 
       hierarchy.states[state].districts[district].totalCases += 1;
+
+      if (isHighRisk) {
+        hierarchy.states[state].districts[district].highRisk += 1;
+      }
+
+      if (isCriticalRisk) {
+        hierarchy.states[state].districts[district].criticalRisk += 1;
+      }
+
+      if (hasActiveAlert) {
+        hierarchy.states[state].districts[district].activeAlerts += 1;
+      }
+
+      if (isEscalating) {
+        hierarchy.states[state].districts[district].escalatingCases += 1;
+      }
     });
-    
+
     const summary = {
       totalCases: cases.length,
 

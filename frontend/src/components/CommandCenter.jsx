@@ -488,39 +488,102 @@ const updateCaseStatus = async (caseId, status) => {
       <section className="command-hierarchy">
         <div className="command-section-header">
           <div>
-            <span className="metric-label">ADMINISTRATIVE HIERARCHY</span>
+            <span className="metric-label">
+              ADMINISTRATIVE HIERARCHY
+            </span>
             <h2>National → State → District</h2>
           </div>
         </div>
 
         <div className="hierarchy-national">
-          <strong>
-            {data?.hierarchy?.national?.totalCases ?? 0}
-          </strong>
-          <span>Cases across India</span>
+          <div>
+            <strong>
+              {data?.hierarchy?.national?.totalCases ?? 0}
+            </strong>
+            <span>Cases across India</span>
+          </div>
+
+          <div className="hierarchy-risk-summary">
+            <span>
+              High/Critical{" "}
+              {(data?.hierarchy?.national?.highRisk ?? 0) +
+                (data?.hierarchy?.national?.criticalRisk ?? 0)}
+            </span>
+
+            <span>
+              Alerts {data?.hierarchy?.national?.activeAlerts ?? 0}
+            </span>
+
+            <span>
+              Escalating{" "}
+              {data?.hierarchy?.national?.escalatingCases ?? 0}
+            </span>
+          </div>
         </div>
 
         <div className="hierarchy-states">
-          {Object.values(data?.hierarchy?.states || {}).map((stateItem) => (
-            <div className="hierarchy-state" key={stateItem.state}>
-              <div className="hierarchy-state-header">
-                <strong>{stateItem.state}</strong>
-                <span>{stateItem.totalCases} cases</span>
-              </div>
+          {Object.values(data?.hierarchy?.states || {}).map(
+            (stateItem) => (
+              <div
+                className="hierarchy-state"
+                key={stateItem.state}
+              >
+                <div className="hierarchy-state-header">
+                  <strong>{stateItem.state}</strong>
+                  <span>
+                    {stateItem.totalCases} cases
+                  </span>
+                </div>
 
-              <div className="hierarchy-districts">
-                {Object.values(stateItem.districts).map((districtItem) => (
-                  <div
-                    className="hierarchy-district"
-                    key={`${stateItem.state}-${districtItem.district}`}
-                  >
-                    <span>{districtItem.district}</span>
-                    <strong>{districtItem.totalCases}</strong>
-                  </div>
-                ))}
+                <div className="hierarchy-state-metrics">
+                  <span>
+                    High/Critical{" "}
+                    {(stateItem.highRisk ?? 0) +
+                      (stateItem.criticalRisk ?? 0)}
+                  </span>
+
+                  <span>
+                    Alerts {stateItem.activeAlerts ?? 0}
+                  </span>
+
+                  <span>
+                    Escalating{" "}
+                    {stateItem.escalatingCases ?? 0}
+                  </span>
+                </div>
+
+                <div className="hierarchy-districts">
+                  {Object.values(
+                    stateItem.districts || {}
+                  ).map((districtItem) => (
+                    <div
+                      className="hierarchy-district"
+                      key={`${stateItem.state}-${districtItem.district}`}
+                    >
+                      <span>{districtItem.district}</span>
+
+                      <div>
+                        <span>
+                          {districtItem.totalCases} cases
+                        </span>
+
+                        <span>
+                          High/Critical{" "}
+                          {(districtItem.highRisk ?? 0) +
+                            (districtItem.criticalRisk ?? 0)}
+                        </span>
+
+                        <span>
+                          Alerts{" "}
+                          {districtItem.activeAlerts ?? 0}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          )}
         </div>
       </section>
 
