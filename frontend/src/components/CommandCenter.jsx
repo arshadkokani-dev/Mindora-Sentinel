@@ -437,32 +437,52 @@ const updateCaseStatus = async (caseId, status) => {
           </div>
         </div>
 
-        <div className="risk-distribution">
-          <div>
-            <span>Low</span>
-            <strong>{summary.lowRisk ?? 0}</strong>
-          </div>
+        {(() => {
+          const low = summary.lowRisk ?? 0
+          const moderate = summary.moderateRisk ?? 0
+          const high = summary.highRisk ?? 0
+          const critical = summary.criticalRisk ?? 0
+          const noData = summary.noData ?? 0
 
-          <div>
-            <span>Moderate</span>
-            <strong>{summary.moderateRisk ?? 0}</strong>
-          </div>
+          const total = low + moderate + high + critical + noData
 
-          <div>
-            <span>High</span>
-            <strong>{summary.highRisk ?? 0}</strong>
-          </div>
+          const percentage = (value) =>
+            total > 0 ? Math.round((value / total) * 100) : 0
 
-          <div>
-            <span>Critical</span>
-            <strong>{summary.criticalRisk ?? 0}</strong>
-          </div>
+          return (
+            <div className="risk-distribution">
+              <div>
+                <span>Low</span>
+                <strong>{low}</strong>
+                <small>{percentage(low)}%</small>
+              </div>
 
-          <div>
-            <span>No Data</span>
-            <strong>{summary.noData ?? 0}</strong>
-          </div>
-        </div>
+              <div>
+                <span>Moderate</span>
+                <strong>{moderate}</strong>
+                <small>{percentage(moderate)}%</small>
+              </div>
+
+              <div>
+                <span>High</span>
+                <strong>{high}</strong>
+                <small>{percentage(high)}%</small>
+              </div>
+
+              <div>
+                <span>Critical</span>
+                <strong>{critical}</strong>
+                <small>{percentage(critical)}%</small>
+              </div>
+
+              <div>
+                <span>No Data</span>
+                <strong>{noData}</strong>
+                <small>{percentage(noData)}%</small>
+              </div>
+            </div>
+          )
+        })()}
       </section>
 
       <section className="command-cases-section">
