@@ -658,6 +658,46 @@ const updateCaseStatus = async (caseId, status) => {
                   </div>
                 </div>
 
+                <div className="case-predictive-risk">
+                  <div className="case-predictive-header">
+                    <span>Predictive Risk</span>
+
+                    <strong
+                    className={`predictive-risk-value ${
+                      caseItem.predictiveRisk?.predictedRiskLevel
+                        ?.toLowerCase()
+                        .replace(/\s+/g, '-') || 'insufficient'
+                    }`}
+                  >
+                    {caseItem.predictiveRisk?.predictedRiskLevel ||
+                      "Insufficient Data"}
+                  </strong>
+                  </div>
+
+                  <div className="case-predictive-details">
+                    <span>
+                      Projected Score:{" "}
+                      {caseItem.predictiveRisk?.projectedScore ?? "—"}
+                    </span>
+
+                    <span>
+                      Trend:{" "}
+                      {caseItem.predictiveRisk?.trend || "Unknown"}
+                    </span>
+
+                    <span>
+                      Confidence:{" "}
+                      {caseItem.predictiveRisk?.confidence || "Low"}
+                    </span>
+                  </div>
+
+                  {caseItem.predictiveRisk?.reasons?.length > 0 && (
+                    <p>
+                      {caseItem.predictiveRisk.reasons[0]}
+                    </p>
+                  )}
+                </div>
+
                 <div className="case-metrics">
                   <div>
                     <span>Distress</span>

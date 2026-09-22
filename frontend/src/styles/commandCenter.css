@@ -778,3 +778,99 @@
     justify-content: flex-start;
   }
 }
+
+/* Predictive risk */
+
+.case-predictive-risk {
+  margin: 16px 0;
+  padding: 14px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+}
+
+.case-predictive-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.case-predictive-header span {
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.predictive-risk-value {
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* Risk level colors */
+
+.predictive-risk-value.low {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.predictive-risk-value.moderate {
+  background: #fffbeb;
+  color: #b45309;
+}
+
+.predictive-risk-value.high {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.predictive-risk-value.critical {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+.predictive-risk-value.insufficient {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+.case-predictive-details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.case-predictive-details span {
+  padding: 9px 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #64748b;
+  font-size: 11px;
+}
+
+.case-predictive-details span::first-letter {
+  color: #334155;
+}
+
+.case-predictive-risk p {
+  margin: 10px 0 0;
+  padding-top: 9px;
+  border-top: 1px solid #e2e8f0;
+  color: #64748b;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+/* Keep the prediction card usable on smaller screens */
+
+@media (max-width: 700px) {
+  .case-predictive-details {
+    grid-template-columns: 1fr;
+  }
+}

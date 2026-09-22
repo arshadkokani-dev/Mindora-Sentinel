@@ -9,6 +9,7 @@ import { calculateEngagement } from "../services/engagementService.js";
 import { calculateCheckInStatus } from "../services/checkInService.js";
 import { calculateCasePriority } from "../services/casePriorityService.js";
 import { createOrUpdateAlert } from "../services/alertManagementService.js";
+import { calculatePredictiveRisk } from "../services/predictiveRiskService.js";
 
 export const getCommandCenter = async (req, res) => {
   try {
@@ -51,6 +52,10 @@ export const getCommandCenter = async (req, res) => {
         ] || null;
 
       const escalation = calculateEscalation(
+        userWellnessEntries
+      );
+
+      const predictiveRisk = calculatePredictiveRisk(
         userWellnessEntries
       );
 
@@ -115,6 +120,17 @@ export const getCommandCenter = async (req, res) => {
             escalation.consecutiveIncrease,
           highRiskCount:
             escalation.highRiskCount,
+        },
+
+        predictiveRisk: {
+          status: predictiveRisk.status,
+          predictedRiskLevel:
+            predictiveRisk.predictedRiskLevel,
+          projectedScore:
+            predictiveRisk.projectedScore,
+          trend: predictiveRisk.trend,
+          confidence: predictiveRisk.confidence,
+          reasons: predictiveRisk.reasons,
         },
 
         riskAlert: {
