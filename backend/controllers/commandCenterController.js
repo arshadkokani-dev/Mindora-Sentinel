@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import User from "../models/User.js";
+import AuditLog from "../models/AuditLog.js";
 import WellnessEntry from "../models/WellnessEntry.js";
 import CBTJournal from "../models/CBTJournal.js";
 
@@ -34,7 +35,7 @@ export const getCommandCenter = async (req, res) => {
       .select("user date")
       .sort({ date: 1 })
       .lean();
-
+    
     const cases = await Promise.all(
     users.map(async (user) => {
       const userWellnessEntries = wellnessEntries.filter(
@@ -383,6 +384,12 @@ export const getCaseDetails = async (req, res) => {
       .sort({ date: 1 })
       .lean()
 
+    const auditLogs = await AuditLog.find({caseId:user._id})
+      .populate("actor", "name email role")
+      .sort({createdAt:-1})
+      .limit(50)
+      .lean()
+
     const latestEntry =
       wellnessEntries[wellnessEntries.length - 1] || null
 
@@ -495,6 +502,17 @@ export const getCaseDetails = async (req, res) => {
           entry.distressScore ?? null,
         riskLevel:
           entry.riskLevel ?? "No Data",
+      })),
+
+      auditLogs:auditLogs.map((log)=>({
+        id:log._id,
+        action:log.action,
+        details:log.details,
+        actor:{
+          name:log.actor?.name || "Unknown",
+          role:log.actor?.role || log.actorRole,
+        },
+        createdAt:log.createdAt,
       })),
     })
   } catch (error) {
