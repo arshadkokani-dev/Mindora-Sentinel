@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import User from "../models/User.js";
 import WellnessEntry from "../models/WellnessEntry.js";
 import CBTJournal from "../models/CBTJournal.js";
@@ -348,7 +349,13 @@ export const getCommandCenter = async (req, res) => {
 
 export const getCaseDetails = async (req, res) => {
   try {
-    const { caseId } = req.params
+   const { caseId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(caseId)) {
+      return res.status(400).json({
+        message: "Invalid case ID",
+      });
+    }
 
     const user = await User.findOne({
       _id: caseId,
