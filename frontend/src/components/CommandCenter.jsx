@@ -11,6 +11,7 @@ function CommandCenter() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [caseStatusFilter, setCaseStatusFilter] = useState('All')
+  const [refreshKey, setRefreshKey] = useState(0)
 
   useEffect(() => {
     const fetchCommandCenter = async () => {
@@ -74,7 +75,7 @@ function CommandCenter() {
     }
 
     fetchCommandCenter()
-  }, [])
+  }, [refreshKey])
 
   const updateAlert = async (alertId, action, actionNote = '') => {
     try {
@@ -105,6 +106,9 @@ function CommandCenter() {
           alert._id === alertId ? result.alert : alert
         )
       )
+
+      setRefreshKey((current) => current + 1)
+
     } catch (error) {
       console.error('Alert update error:', error)
       setError(error.message)
@@ -146,6 +150,9 @@ const updateCaseStatus = async (caseId, status) => {
           : caseItem
       ),
     }))
+
+    setRefreshKey((current) => current + 1)
+    
   } catch (error) {
     console.error('Case status update error:', error)
     setError(error.message)
