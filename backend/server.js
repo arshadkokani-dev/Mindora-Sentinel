@@ -13,6 +13,7 @@ import commandCenterRoutes from "./routes/commandCenterRoutes.js";
 import alertRoutes from "./routes/alertRoutes.js";
 import interventionRoutes from "./routes/interventionRoutes.js";
 import caseLifecycleRoutes from "./routes/caseLifecycleRoutes.js";
+import auditRoutes from "./routes/auditRoutes.js";
 
 dotenv.config();
 
@@ -28,6 +29,7 @@ app.use("/api/cases", commandCenterRoutes);
 app.use("/api/alerts", alertRoutes);
 app.use("/api/interventions", interventionRoutes);
 app.use("/api/case-lifecycle", caseLifecycleRoutes);
+app.use("/api/audit-logs", auditRoutes);
 
 const PORT = process.env.PORT || 5000;
 
