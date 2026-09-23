@@ -1,4 +1,5 @@
 import Alert from "../models/Alert.js";
+import { createAuditLog } from "../services/auditService.js";
 
 const findAlert = async (req, res) => {
   const alert = await Alert.findById(req.params.alertId);
@@ -51,6 +52,14 @@ export const acknowledgeAlert = async (req, res) => {
 
     await alert.save();
 
+    await createAuditLog({
+      actor: req.userId,
+      actorRole: req.userRole,
+      action: "ALERT_ACKNOWLEDGED",
+      caseId: alert.caseId,
+      details: `Alert acknowledged: ${alert.type}.`,
+    });
+
     res.status(200).json({
       message: "Alert acknowledged",
       alert,
@@ -84,6 +93,14 @@ export const reviewAlert = async (req, res) => {
     alert.reviewStartedAt = new Date();
 
     await alert.save();
+
+    await createAuditLog({
+      actor: req.userId,
+      actorRole: req.userRole,
+      action: "ALERT_REVIEW_STARTED",
+      caseId: alert.caseId,
+      details: `Alert moved under review: ${alert.type}.`,
+    });
 
     res.status(200).json({
       message: "Alert moved under review",
@@ -119,6 +136,14 @@ export const resolveAlert = async (req, res) => {
     alert.actionNote = req.body.actionNote || "";
 
     await alert.save();
+
+    await createAuditLog({
+      actor: req.userId,
+      actorRole: req.userRole,
+      action: "ALERT_RESOLVED",
+      caseId: alert.caseId,
+      details: `Alert resolved: ${alert.type}.`,
+    });
 
     res.status(200).json({
       message: "Alert resolved",
