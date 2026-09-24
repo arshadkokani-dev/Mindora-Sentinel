@@ -74,6 +74,7 @@ function CaseDetails() {
 
   const caseData = data?.case || {}
   const timeline = data?.timeline || []
+  const auditLogs = data?.auditLogs || []
 
   const formatDate = (date) => {
     if (!date) return '—'
@@ -481,8 +482,61 @@ function CaseDetails() {
         )}
 
       </section>
+      <section className="case-details-section">
+
+      <div className="case-section-header">
+        <span className="metric-label">
+          AUDIT ACTIVITY
+        </span>
+
+        <h2>Case action history</h2>
+
+        <p>
+          Recorded actions performed by authorized staff.
+        </p>
+      </div>
+
+      {auditLogs.length === 0 ? (
+        <div className="case-empty-card">
+          No audit activity has been recorded for this case.
+        </div>
+      ) : (
+        <div className="case-audit-list">
+
+          {auditLogs.map((log) => (
+            <article
+              className="case-audit-card"
+              key={log.id}
+            >
+              <div>
+                <span className="metric-label">
+                  {log.action
+                    ?.replace(/_/g, ' ')
+                    .toLowerCase()
+                    .replace(/\b\w/g, (char) => char.toUpperCase())}
+                </span>
+
+                <h3>{log.details || 'Case action recorded'}</h3>
+
+                <p>
+                  {log.actor?.name || 'Unknown user'} ·{' '}
+                  {log.actor?.role || 'Authorized staff'}
+                </p>
+              </div>
+
+              <time>
+                {formatDateTime(log.createdAt)}
+              </time>
+            </article>
+          ))}
+
+        </div>
+      )}
+
+    </section>
 
     </main>
+    
   )
 }
 

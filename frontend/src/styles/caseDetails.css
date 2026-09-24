@@ -505,3 +505,101 @@
     padding: 15px;
   }
 }
+
+/* Audit Activity */
+
+.case-audit-list {
+  position: relative;
+  margin-top: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.case-audit-list::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0.35rem;
+  width: 2px;
+  background: #d9e2ec;
+}
+
+.case-audit-card {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  text-align: left;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+}
+
+.case-audit-card::before {
+  content: '';
+  position: absolute;
+  left: -1.52rem;
+  top: 1.35rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #2563eb;
+  border: 3px solid #ffffff;
+  box-shadow: 0 0 0 2px #2563eb;
+}
+
+.case-audit-card .metric-label {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: #2563eb;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.case-audit-card h3 {
+  margin: 0;
+  color: #172033;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.case-audit-card p {
+  margin: 0.45rem 0 0;
+  color: #64748b;
+  font-size: 0.82rem;
+}
+
+.case-audit-card time {
+  flex-shrink: 0;
+  align-self: flex-start;
+  color: #64748b;
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+/* Different colors for audit action types */
+
+.case-audit-card:has(.metric-label:first-child) {
+  border-left: 3px solid #2563eb;
+}
+
+.case-audit-card:has(.metric-label:first-child) .metric-label {
+  color: #2563eb;
+}
+
+/* Mobile */
+
+@media (max-width: 700px) {
+  .case-audit-card {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .case-audit-card time {
+    align-self: flex-start;
+  }
+}
