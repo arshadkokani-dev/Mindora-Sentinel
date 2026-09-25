@@ -112,35 +112,86 @@ const emotionData = analytics?.emotionCounts
 
       <main className="dashboard-content">
 
-      <section className="analytics-summary">
-  <div className="analytics-summary-header">
-    <p className="card-label">DISTRESS STATUS</p>
-    <h2>Your current risk level</h2>
-    <p>
-      Based on your latest wellness check-in.
-    </p>
+<section className="wellbeing-overview">
+  <div className="wellbeing-overview-header">
+    <div>
+      <p className="card-label">YOUR WELLBEING AT A GLANCE</p>
+      <h2>Your current wellbeing</h2>
+      <p>
+        A quick view of your recent wellness check-ins and current distress status.
+      </p>
+    </div>
   </div>
 
-  {latestEntry?.distressScore !== undefined ? (
-    <div className="summary-cards">
+  {!analyticsLoading &&
+    !analyticsError &&
+    analytics?.averages && (
+      <div className="wellbeing-metrics">
+        <div className="wellbeing-metric">
+          <span>Mood</span>
+          <strong>{analytics.averages.mood.toFixed(1)}</strong>
+          <small>/10</small>
+        </div>
 
-      <div className="summary-card">
-        <span>Distress Score</span>
-        <strong>{latestEntry.distressScore}/100</strong>
+        <div className="wellbeing-metric">
+          <span>Energy</span>
+          <strong>{analytics.averages.energy.toFixed(1)}</strong>
+          <small>/10</small>
+        </div>
+
+        <div className="wellbeing-metric">
+          <span>Sleep</span>
+          <strong>{analytics.averages.sleep.toFixed(1)}</strong>
+          <small>/10</small>
+        </div>
+
+        <div className="wellbeing-metric">
+          <span>Stress</span>
+          <strong>{analytics.averages.stress.toFixed(1)}</strong>
+          <small>/10</small>
+        </div>
+
+        <div className="wellbeing-metric">
+          <span>Anxiety</span>
+          <strong>{analytics.averages.anxiety.toFixed(1)}</strong>
+          <small>/10</small>
+        </div>
+      </div>
+    )}
+
+  {!analyticsLoading &&
+    !analyticsError &&
+    analytics &&
+    !analytics.averages && (
+      <p className="wellbeing-empty">
+        Complete your first check-in to see your wellbeing snapshot.
+      </p>
+    )}
+
+  <div className="wellbeing-status">
+    <div className="wellbeing-status-card">
+      <span className="wellbeing-status-label">CURRENT DISTRESS</span>
+
+      <div className="wellbeing-status-value">
+        {latestEntry?.distressScore ?? '—'}
+        {latestEntry?.distressScore !== undefined && <small>/100</small>}
       </div>
 
-      <div className="summary-card">
-        <span>Risk Level</span>
-        <strong>{latestEntry.riskLevel}</strong>
-      </div>
-
+      <p>Based on your latest wellness check-in.</p>
     </div>
-  ) : (
-    <p>
-      Complete a new check-in to see your current distress status.
-    </p>
-  )}
+
+    <div className="wellbeing-status-card">
+      <span className="wellbeing-status-label">CURRENT RISK</span>
+
+      <div className="wellbeing-risk-value">
+        {latestEntry?.riskLevel ?? 'No data'}
+      </div>
+
+      <p>Your current wellbeing risk level.</p>
+    </div>
+  </div>
 </section>
+
 
         {/* Risk Intelligence */}
 <section className="risk-intelligence-section">
@@ -480,57 +531,6 @@ const emotionData = analytics?.emotionCounts
   </section>
 )}
 
-
-        <section className="analytics-summary">
-  <div className="analytics-summary-header">
-    <p className="card-label">YOUR WELLNESS SNAPSHOT</p>
-    <h2>How you've been feeling</h2>
-    <p>Your average scores across your recent check-ins.</p>
-  </div>
-
-  {!analyticsLoading &&
-    !analyticsError &&
-    analytics?.averages && (
-      <div className="summary-cards">
-
-        <div className="summary-card">
-          <span>Mood</span>
-          <strong>{analytics.averages.mood.toFixed(1)}/10</strong>
-        </div>
-
-        <div className="summary-card">
-          <span>Energy</span>
-          <strong>{analytics.averages.energy.toFixed(1)}/10</strong>
-        </div>
-
-        <div className="summary-card">
-          <span>Sleep</span>
-          <strong>{analytics.averages.sleep.toFixed(1)}/10</strong>
-        </div>
-
-        <div className="summary-card">
-          <span>Stress</span>
-          <strong>{analytics.averages.stress.toFixed(1)}/10</strong>
-        </div>
-
-        <div className="summary-card">
-          <span>Anxiety</span>
-          <strong>{analytics.averages.anxiety.toFixed(1)}/10</strong>
-        </div>
-
-      </div>
-    )}
-
-    {!analyticsLoading &&
-      !analyticsError &&
-      analytics &&
-      !analytics.averages && (
-        <p>
-          No wellness data yet. Complete your first check-in to see your wellness snapshot.
-        </p>
-      )}
-</section>
-
         <section className="checkin-card">
           <div>
             <p className="card-label">TODAY'S CHECK-IN</p>
@@ -561,271 +561,6 @@ const emotionData = analytics?.emotionCounts
   >
     Open CBT Journal
   </button>
-</section>
-
-        <section className="analytics-section">
-  <div className="analytics-header">
-  <p className="card-label">WELLNESS TRENDS</p>
-  <h2>Mood & Stress</h2>
-  <p>
-    See how your mood and stress have changed over time.
-  </p>
-</div>
-
-  {analyticsLoading && (
-    <p>Loading your wellness trends...</p>
-  )}
-
-  {analyticsError && (
-    <p>{analyticsError}</p>
-  )}
-
-  {!analyticsLoading &&
-    !analyticsError &&
-    analytics &&
-    analytics.trends?.length > 0 && (
-      <div className="chart-container">
-        <ResponsiveContainer width="100%" height={350}>
-          <LineChart
-            data={analytics.trends}
-            margin={{
-              top: 20,
-              right: 20,
-              left: 0,
-              bottom: 20,
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-
-            <XAxis
-              dataKey="date"
-              tickFormatter={(date) =>
-                new Date(date).toLocaleDateString([], {
-                  day: "numeric",
-                  month: "short",
-                })
-              }
-            />
-
-            <YAxis domain={[0, 10]} />
-
-            <Tooltip
-              labelFormatter={(date) =>
-                new Date(date).toLocaleDateString()
-              }
-            />
-
-            <Legend />
-
-            <Line
-              type="monotone"
-              dataKey="mood"
-              name="Mood"
-              stroke="#4f46e5"
-              strokeWidth={2}
-            />
-
-            <Line
-              type="monotone"
-              dataKey="stress"
-              name="Stress"
-              stroke="#ef4444"
-              strokeWidth={2}
-            />
-          </LineChart>
-        </ResponsiveContainer>
-      </div>
-    )}
-</section> 
-
-<section className="analytics-section secondary-analytics">
-  <div className="analytics-header">
-    <p className="card-label">ENERGY & SLEEP</p>
-    <h2>Your energy and sleep</h2>
-    <p>
-      See how your energy and sleep have changed over time.
-    </p>
-  </div>
-
-  {!analyticsLoading &&
-    !analyticsError &&
-    analytics &&
-    analytics.trends?.length > 0 && (
-      <div className="chart-container">
-        <ResponsiveContainer width="100%" height={350}>
-          <LineChart
-            data={analytics.trends}
-            margin={{
-              top: 20,
-              right: 20,
-              left: 0,
-              bottom: 20,
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-
-            <XAxis
-              dataKey="date"
-              tickFormatter={(date) =>
-                new Date(date).toLocaleDateString([], {
-                  day: "numeric",
-                  month: "short",
-                })
-              }
-            />
-
-            <YAxis domain={[0, 10]} />
-
-            <Tooltip
-              labelFormatter={(date) =>
-                new Date(date).toLocaleDateString()
-              }
-            />
-
-            <Legend />
-
-            <Line
-              type="monotone"
-              dataKey="energy"
-              name="Energy"
-              stroke="#10b981"
-              strokeWidth={2}
-            />
-
-            <Line
-              type="monotone"
-              dataKey="sleep"
-              name="Sleep"
-              stroke="#8b5cf6"
-              strokeWidth={2}
-            />
-          </LineChart>
-        </ResponsiveContainer>
-      </div>
-    )}
-</section>
-
-<section className="analytics-section">
-  <div className="analytics-header">
-    <p className="card-label">EMOTION PATTERNS</p>
-    <h2>Your emotions</h2>
-    <p>
-      See which emotions you've experienced most often.
-    </p>
-  </div>
-
-  {!analyticsLoading &&
-    !analyticsError &&
-    emotionData.length > 0 && (
-      <div className="chart-container">
-        <ResponsiveContainer width="100%" height={350}>
-          <BarChart
-            data={emotionData}
-            margin={{
-              top: 20,
-              right: 20,
-              left: 0,
-              bottom: 20,
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-
-            <XAxis dataKey="emotion" />
-
-            <YAxis allowDecimals={false} />
-
-            <Tooltip />
-
-            <Bar
-  dataKey="count"
-  name="Times experienced"
-  radius={[6, 6, 0, 0]}
->
-  {emotionData.map((entry, index) => (
-    <Cell
-      key={`cell-${entry.emotion}`}
-      fill={emotionColors[index % emotionColors.length]}
-    />
-  ))}
-</Bar>
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
-    )}
-</section>
-
-       <section className="analytics-section">
-  <div className="analytics-header">
-    <p className="card-label">DISTRESS TREND</p>
-    <h2>Your distress over time</h2>
-    <p>
-      Track how your distress score has changed across your check-ins.
-    </p>
-    {analytics?.distressTrend && (
-  <div className="distress-trend-summary">
-    <h3>
-      Trend: {analytics.distressTrend.trend}
-    </h3>
-
-    <p>
-      Change: {analytics.distressTrend.change > 0 ? "+" : ""}
-      {analytics.distressTrend.change} points
-    </p>
-  </div>
-)}
-  </div>
-
-  {entries.filter((entry) => entry.distressScore !== undefined).length > 0 ? (
-    <div className="chart-container">
-      <ResponsiveContainer width="100%" height={350}>
-        <LineChart
-          data={[...entries]
-            .filter((entry) => entry.distressScore !== undefined)
-            .reverse()}
-          margin={{
-            top: 20,
-            right: 20,
-            left: 0,
-            bottom: 20,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-
-          <XAxis
-            dataKey="date"
-            tickFormatter={(date) =>
-              new Date(date).toLocaleDateString([], {
-                day: "numeric",
-                month: "short",
-              })
-            }
-          />
-
-          <YAxis domain={[0, 100]} />
-
-          <Tooltip
-            labelFormatter={(date) =>
-              new Date(date).toLocaleDateString()
-            }
-          />
-
-          <Legend />
-
-          <Line
-            type="monotone"
-            dataKey="distressScore"
-            name="Distress Score"
-            stroke="#dc2626"
-            strokeWidth={2}
-          />
-        </LineChart>
-      </ResponsiveContainer>
-    </div>
-  ) : (
-    <p>
-      Complete more check-ins to see your distress trend.
-    </p>
-  )}
 </section>
 
         <section className="wellness-section">

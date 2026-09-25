@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import DashboardNav from './DashboardNav'
+import Chatbot from './Chatbot'
 
 function DashboardLayout() {
   return (
@@ -9,6 +10,8 @@ function DashboardLayout() {
       <main className="dashboard-content">
         <Outlet />
       </main>
+
+      <Chatbot />
     </div>
   )
 }
