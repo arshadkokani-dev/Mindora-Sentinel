@@ -1,5 +1,6 @@
 import { generateChatResponse } from "../services/chatbotService.js";
 import { extractChatSignals } from "../services/chatSignalService.js";
+import AIInteraction from "../models/AIInteraction.js";
 
 export const chatWithMindora = async (req, res) => {
   try {
@@ -13,6 +14,13 @@ export const chatWithMindora = async (req, res) => {
 
     const reply = await generateChatResponse(message, context);
     const signals = await extractChatSignals(message, context);
+
+    await AIInteraction.create({
+      user: req.userId,
+      source: "chatbot",
+      signals,
+    });
+    
     if (!reply) {
       return res.status(502).json({
         message: "The AI service returned an empty response.",

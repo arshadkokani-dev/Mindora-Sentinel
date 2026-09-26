@@ -3,6 +3,7 @@ import User from "../models/User.js";
 import AuditLog from "../models/AuditLog.js";
 import WellnessEntry from "../models/WellnessEntry.js";
 import CBTJournal from "../models/CBTJournal.js";
+import AIInteraction from "../models/AIInteraction.js";
 
 import { calculateEscalation } from "../services/escalationService.js";
 import { calculateRiskAlert } from "../services/alertService.js";
@@ -35,6 +36,12 @@ export const getCommandCenter = async (req, res) => {
       .select("user date")
       .sort({ date: 1 })
       .lean();
+
+    const aiInteractions = await AIInteraction.find({
+      user: { $in: victimIds },
+    })
+      .sort({ createdAt: 1 })
+      .lean();
     
     const cases = await Promise.all(
     users.map(async (user) => {
@@ -47,6 +54,16 @@ export const getCommandCenter = async (req, res) => {
         (entry) =>
           entry.user.toString() === user._id.toString()
       );
+
+      const userAIInteractions = aiInteractions.filter(
+        (interaction) =>
+          interaction.user.toString() === user._id.toString()
+      );
+
+      const latestAIInteraction =
+        userAIInteractions[
+          userAIInteractions.length - 1
+        ] || null;
 
       const latestEntry =
         userWellnessEntries[
@@ -159,6 +176,30 @@ export const getCommandCenter = async (req, res) => {
             engagement.lastInteraction,
           daysSinceLastInteraction:
             engagement.daysSinceLastInteraction,
+        },
+
+        aiIntelligence: {
+          totalInteractions: aiInteractions.length,
+
+          latest: latestAIInteraction
+            ? {
+                timestamp: latestAIInteraction.createdAt,
+                sentiment:
+                  latestAIInteraction.signals?.sentiment || "Unknown",
+                emotions:
+                  latestAIInteraction.signals?.emotions || [],
+                distressSignals:
+                  latestAIInteraction.signals?.distressSignals || [],
+                urgency:
+                  latestAIInteraction.signals?.urgency || "Unknown",
+                relevantSignals:
+                  latestAIInteraction.signals?.relevantSignals || [],
+                confidence:
+                  latestAIInteraction.signals?.confidence ?? 0,
+                reasoning:
+                  latestAIInteraction.signals?.reasoning || "",
+              }
+            : null,
         },
 
         checkInStatus: {
@@ -384,6 +425,15 @@ export const getCaseDetails = async (req, res) => {
       .sort({ date: 1 })
       .lean()
 
+    const aiInteractions = await AIInteraction.find({
+      user: user._id,
+    })
+      .sort({ createdAt: 1 })
+      .lean();
+
+    const latestAIInteraction =
+      aiInteractions[aiInteractions.length - 1] || null;
+
     const auditLogs = await AuditLog.find({caseId:user._id})
       .populate("actor", "name email role")
       .sort({createdAt:-1})
@@ -472,6 +522,30 @@ export const getCaseDetails = async (req, res) => {
             engagement.lastInteraction,
           daysSinceLastInteraction:
             engagement.daysSinceLastInteraction,
+        },
+
+        aiIntelligence: {
+          totalInteractions: aiInteractions.length,
+
+          latest: latestAIInteraction
+            ? {
+                timestamp: latestAIInteraction.createdAt,
+                sentiment:
+                  latestAIInteraction.signals?.sentiment || "Unknown",
+                emotions:
+                  latestAIInteraction.signals?.emotions || [],
+                distressSignals:
+                  latestAIInteraction.signals?.distressSignals || [],
+                urgency:
+                  latestAIInteraction.signals?.urgency || "Unknown",
+                relevantSignals:
+                  latestAIInteraction.signals?.relevantSignals || [],
+                confidence:
+                  latestAIInteraction.signals?.confidence ?? 0,
+                reasoning:
+                  latestAIInteraction.signals?.reasoning || "",
+              }
+            : null,
         },
 
         checkInStatus: {
