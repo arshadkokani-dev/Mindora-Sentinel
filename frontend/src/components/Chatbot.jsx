@@ -1,11 +1,24 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import ReactMarkdown from 'react-markdown'
 import '../styles/chatbot.css'
 
 function Chatbot() {
   const [open, setOpen] = useState(false)
   const [message, setMessage] = useState('')
+  const startNewChat = () => {
+    setMessages([])
+    setMessage('')
+  }
   const [messages, setMessages] = useState([])
   const [loading, setLoading] = useState(false)
+
+  const messagesEndRef = useRef(null)
+
+  useEffect(() => {
+    if (open) {
+      messagesEndRef.current?.scrollIntoView({ behavior: 'auto' })
+    }
+  }, [messages, open])
 
   const sendMessage = async (event) => {
     event.preventDefault()
@@ -33,6 +46,9 @@ function Chatbot() {
         },
         body: JSON.stringify({
           message: trimmedMessage,
+          context: messages
+            .map((item) => `${item.role}: ${item.content}`)
+            .join("\n"),
         }),
       })
 
@@ -72,13 +88,25 @@ function Chatbot() {
               <span>AI-powered support</span>
             </div>
 
-            <button
-              type="button"
-              onClick={() => setOpen(false)}
-              aria-label="Close chatbot"
-            >
-              ×
-            </button>
+            <div className="mindora-chat-header-actions">
+              <button
+                type="button"
+                className="mindora-new-chat"
+                onClick={startNewChat}
+                aria-label="Start new chat"
+                title="New chat"
+              >
+                +
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                aria-label="Close chatbot"
+              >
+                ×
+              </button>
+            </div>
           </header>
 
           <div className="mindora-chat-messages">
@@ -97,9 +125,11 @@ function Chatbot() {
                 key={index}
                 className={`mindora-chat-message ${item.role}`}
               >
-                {item.content}
+                <ReactMarkdown>{item.content}</ReactMarkdown>
               </div>
             ))}
+
+            <div ref={messagesEndRef} />
 
             {loading && (
               <div className="mindora-chat-message assistant">

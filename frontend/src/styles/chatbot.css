@@ -88,6 +88,7 @@
   border-radius: 14px;
   font-size: 14px;
   line-height: 1.6;
+  text-align: left;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
@@ -140,4 +141,31 @@
     right: 16px;
     bottom: 16px;
   }
+}
+
+.mindora-chat-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mindora-new-chat {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: white;
+  font-size: 22px;
+  line-height: 28px;
+  cursor: pointer;
+}
+
+.mindora-new-chat:hover {
+  background: #ffffff22;
+}
+
+.mindora-new-chat:hover {
+  opacity: 1;
 }
