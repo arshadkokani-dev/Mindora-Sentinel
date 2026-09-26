@@ -1,4 +1,5 @@
 import { generateChatResponse } from "../services/chatbotService.js";
+import { extractChatSignals } from "../services/chatSignalService.js";
 
 export const chatWithMindora = async (req, res) => {
   try {
@@ -11,7 +12,7 @@ export const chatWithMindora = async (req, res) => {
     }
 
     const reply = await generateChatResponse(message, context);
-
+    const signals = await extractChatSignals(message, context);
     if (!reply) {
       return res.status(502).json({
         message: "The AI service returned an empty response.",
@@ -20,6 +21,7 @@ export const chatWithMindora = async (req, res) => {
 
     res.status(200).json({
       reply,
+      signals,
     });
   } catch (error) {
     console.error("Chatbot error:", error.message);
