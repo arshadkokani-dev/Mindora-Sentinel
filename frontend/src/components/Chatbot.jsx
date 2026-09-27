@@ -11,6 +11,8 @@ function Chatbot() {
   }
   const [messages, setMessages] = useState([])
   const [loading, setLoading] = useState(false)
+  const [listening, setListening] = useState(false)
+  const recognitionRef = useRef(null)
   const [language, setLanguage] = useState('English')
 
   const messagesEndRef = useRef(null)
@@ -79,6 +81,55 @@ function Chatbot() {
       setLoading(false)
     }
   }
+
+  const startVoiceInput = () => {
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition
+
+  if (!SpeechRecognition) {
+    alert('Speech recognition is not supported in this browser.')
+    return
+  }
+
+  if (listening && recognitionRef.current) {
+    recognitionRef.current.stop()
+    return
+  }
+
+  const recognition = new SpeechRecognition()
+
+  recognition.lang =
+    language === 'Hindi'
+      ? 'hi-IN'
+      : language === 'Marathi'
+        ? 'mr-IN'
+        : 'en-IN'
+
+  recognition.interimResults = false
+  recognition.maxAlternatives = 1
+
+  recognition.onstart = () => {
+    recognitionRef.current = recognition
+    setListening(true)
+  }
+
+  recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript
+    setMessage((current) => `${current} ${transcript}`.trim())
+  }
+
+  recognition.onerror = () => {
+    setListening(false)
+    recognitionRef.current = null
+  }
+
+  recognition.onend = () => {
+    setListening(false)
+    recognitionRef.current = null
+  }
+
+  recognition.start()
+}
 
   return (
     <div className="mindora-chatbot">
@@ -159,6 +210,16 @@ function Chatbot() {
               placeholder="Type a message..."
               disabled={loading}
             />
+
+            <button
+              type="button"
+              onClick={startVoiceInput}
+              disabled={loading}
+              title={listening ? 'Listening...' : 'Voice input'}
+              aria-label={listening ? 'Listening' : 'Voice input'}
+            >
+              {listening ? '●' : '🎤'}
+            </button>
 
             <button type="submit" disabled={loading || !message.trim()}>
               Send

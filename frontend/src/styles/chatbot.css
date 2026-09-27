@@ -192,3 +192,10 @@
   background: white;
   color: #24384b;
 }
+
+.mindora-chat-input button[aria-label="Voice input"],
+.mindora-chat-input button[aria-label="Listening"] {
+  min-width: 44px;
+  padding: 0 12px;
+  font-size: 17px;
+}
