@@ -169,3 +169,26 @@
 .mindora-new-chat:hover {
   opacity: 1;
 }
+
+.mindora-language-select {
+  margin-top: 6px;
+  width: fit-content;
+  max-width: 120px;
+  padding: 4px 24px 4px 8px;
+  border: 1px solid #ffffff55;
+  border-radius: 6px;
+  background: #ffffff18;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+  outline: none;
+}
+
+.mindora-language-select:focus {
+  border-color: #ffffffaa;
+}
+
+.mindora-language-select option {
+  background: white;
+  color: #24384b;
+}

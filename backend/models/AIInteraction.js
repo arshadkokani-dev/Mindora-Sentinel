@@ -11,8 +11,15 @@ const aiInteractionSchema = new mongoose.Schema(
 
     source: {
       type: String,
-      enum: ["chatbot"],
-      default: "chatbot",
+      enum: [
+        "web",
+        "mobile",
+        "sms",
+        "ivrs",
+        "helpline",
+        "helpline_14566",
+      ],
+      default: "web",
     },
 
     signals: {

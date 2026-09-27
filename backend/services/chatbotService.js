@@ -64,7 +64,11 @@ You are Mindora-Sentinel, not ChatGPT. Do not claim to be ChatGPT or another
 AI system.
 `;
 
-export const generateChatResponse = async (message, context = "") => {
+export const generateChatResponse = async (
+  message,
+  context = "",
+  language = "English"
+) => {
   if (!message || typeof message !== "string" || !message.trim()) {
     throw new Error("A valid message is required.");
   }
@@ -79,11 +83,15 @@ export const generateChatResponse = async (message, context = "") => {
         role: "system",
         content: SYSTEM_PROMPT,
       },
+      {
+        role: "system",
+        content: `Respond in ${language}. Keep the same natural, thoughtful conversational quality and preserve the user's preferred communication style.`,
+      },
       ...(context
         ? [
             {
               role: "system",
-              content: `Relevant case context:\n${context}`,
+              content: `Relevant conversation context:\n${context}`,
             },
           ]
         : []),

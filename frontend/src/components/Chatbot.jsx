@@ -11,6 +11,7 @@ function Chatbot() {
   }
   const [messages, setMessages] = useState([])
   const [loading, setLoading] = useState(false)
+  const [language, setLanguage] = useState('English')
 
   const messagesEndRef = useRef(null)
 
@@ -49,6 +50,7 @@ function Chatbot() {
           context: messages
             .map((item) => `${item.role}: ${item.content}`)
             .join("\n"),
+            language,
         }),
       })
 
@@ -86,6 +88,17 @@ function Chatbot() {
             <div>
               <strong>Mindora Assistant</strong>
               <span>AI-powered support</span>
+
+              <select
+                className="mindora-language-select"
+                value={language}
+                onChange={(event) => setLanguage(event.target.value)}
+                aria-label="Chat language"
+              >
+                <option value="English">English</option>
+                <option value="Hindi">हिन्दी</option>
+                <option value="Marathi">मराठी</option>
+              </select>
             </div>
 
             <div className="mindora-chat-header-actions">
