@@ -6,6 +6,8 @@
   width: 100%;
   max-width: 1250px;
   margin: 0 auto;
+  padding: 28px 30px 40px;
+  box-sizing: border-box;
 }
 
 
@@ -15,6 +17,7 @@
 
 .command-center-header {
   margin-bottom: 28px;
+  text-align: center;
 }
 
 .command-center-header .metric-label {
@@ -30,7 +33,7 @@
 
 .command-center-header p {
   max-width: 720px;
-  margin: 0;
+  margin: 0 auto;
   color: #64748b;
   line-height: 1.6;
 }
@@ -60,6 +63,40 @@
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
+}
+
+.command-summary-icon {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 12px !important;
+  border-radius: 12px;
+  background: #eef4ff;
+  color: #1768b5 !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+}
+
+.command-summary-card:nth-child(1) .command-summary-icon {
+  background: #eef2f7;
+  color: #475569 !important;
+}
+
+.command-summary-card:nth-child(2) .command-summary-icon {
+  background: #eaf2ff;
+  color: #2563eb !important;
+}
+
+.command-summary-card:nth-child(3) .command-summary-icon {
+  background: #fff4df;
+  color: #d97706 !important;
+}
+
+.command-summary-card:nth-child(4) .command-summary-icon {
+  background: #f2edff;
+  color: #7c3aed !important;
 }
 
 .command-summary-card:hover {
@@ -405,6 +442,18 @@
   background: #fff;
 }
 
+.command-alert-card.moderate {
+  border-left-color: #3b82f6;
+}
+
+.command-alert-card.high {
+  border-left-color: #f59e0b;
+}
+
+.command-alert-card.critical {
+  border-left-color: #dc2626;
+}
+
 .command-alert-main {
   display: flex;
   justify-content: space-between;
@@ -430,6 +479,21 @@
   color: #a16207;
   font-size: 11px;
   font-weight: 700;
+}
+
+.command-alert-card.moderate .alert-severity {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.command-alert-card.high .alert-severity {
+  background: #fef3c7;
+  color: #a16207;
+}
+
+.command-alert-card.critical .alert-severity {
+  background: #fee2e2;
+  color: #b91c1c;
 }
 
 .command-alert-reasons {

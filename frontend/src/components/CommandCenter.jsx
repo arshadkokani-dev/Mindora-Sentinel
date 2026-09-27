@@ -204,21 +204,25 @@ const updateCaseStatus = async (caseId, status) => {
 
       <section className="command-summary">
         <div className="command-summary-card">
+          <span className="command-summary-icon" aria-hidden="true">◉</span>
           <span>Total Cases</span>
           <strong>{summary.totalCases ?? 0}</strong>
         </div>
 
         <div className="command-summary-card">
+          <span className="command-summary-icon" aria-hidden="true">!</span>
           <span>Active Alerts</span>
           <strong>{summary.activeAlerts ?? 0}</strong>
         </div>
 
         <div className="command-summary-card">
+          <span className="command-summary-icon" aria-hidden="true">↗</span>
           <span>Escalating</span>
           <strong>{summary.escalatingCases ?? 0}</strong>
         </div>
 
         <div className="command-summary-card">
+          <span className="command-summary-icon" aria-hidden="true">◷</span>
           <span>Overdue Check-ins</span>
           <strong>{summary.overdueCheckIns ?? 0}</strong>
         </div>

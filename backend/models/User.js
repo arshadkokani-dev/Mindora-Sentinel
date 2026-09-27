@@ -45,6 +45,12 @@ const userSchema = new mongoose.Schema(
       default: "India",
     },
 
+    jurisdictionLevel: {
+      type: String,
+      enum: ["district", "state", "national"],
+      default: "district",
+    },
+
     caseStatus: {
       type: String,
       enum: [

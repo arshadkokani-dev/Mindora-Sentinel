@@ -133,6 +133,7 @@ function CaseDetails() {
       <section className="case-overview-grid">
 
         <div className="case-overview-card">
+          <span className="case-overview-icon" aria-hidden="true">◉</span>
           <span>Distress Score</span>
           <strong>
             {caseData.latestDistressScore ?? '—'}
@@ -140,6 +141,7 @@ function CaseDetails() {
         </div>
 
         <div className="case-overview-card">
+          <span className="case-overview-icon" aria-hidden="true">↗</span>
           <span>Escalation</span>
           <strong>
             {caseData.escalation?.status || '—'}
@@ -147,6 +149,7 @@ function CaseDetails() {
         </div>
 
         <div className="case-overview-card">
+          <span className="case-overview-icon" aria-hidden="true">◌</span>
           <span>Engagement</span>
           <strong>
             {caseData.engagement?.status || '—'}
@@ -154,6 +157,7 @@ function CaseDetails() {
         </div>
 
         <div className="case-overview-card">
+          <span className="case-overview-icon" aria-hidden="true">◷</span>
           <span>Check-in</span>
           <strong>
             {caseData.checkInStatus?.status || '—'}

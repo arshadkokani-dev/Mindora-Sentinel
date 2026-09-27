@@ -127,34 +127,34 @@ const emotionData = analytics?.emotionCounts
     !analyticsError &&
     analytics?.averages && (
       <div className="wellbeing-metrics">
-        <div className="wellbeing-metric">
+        <div className="wellbeing-metric mood">
+          <span className="wellbeing-metric-icon" aria-hidden="true">☺</span>
           <span>Mood</span>
-          <strong>{analytics.averages.mood.toFixed(1)}</strong>
-          <small>/10</small>
+          <strong>{latestEntry?.mood ?? '--'}<small>/10</small></strong>
         </div>
 
-        <div className="wellbeing-metric">
+        <div className="wellbeing-metric energy">
+          <span className="wellbeing-metric-icon" aria-hidden="true">⚡</span>
           <span>Energy</span>
-          <strong>{analytics.averages.energy.toFixed(1)}</strong>
-          <small>/10</small>
+          <strong>{latestEntry?.energy ?? '--'}<small>/10</small></strong>
         </div>
 
-        <div className="wellbeing-metric">
+        <div className="wellbeing-metric sleep">
+          <span className="wellbeing-metric-icon" aria-hidden="true">◐</span>
           <span>Sleep</span>
-          <strong>{analytics.averages.sleep.toFixed(1)}</strong>
-          <small>/10</small>
+          <strong>{latestEntry?.sleep ?? '--'}<small>/10</small></strong>
         </div>
 
-        <div className="wellbeing-metric">
+        <div className="wellbeing-metric stress">
+          <span className="wellbeing-metric-icon" aria-hidden="true">≈</span>
           <span>Stress</span>
-          <strong>{analytics.averages.stress.toFixed(1)}</strong>
-          <small>/10</small>
+          <strong>{latestEntry?.stress ?? '--'}<small>/10</small></strong>
         </div>
 
-        <div className="wellbeing-metric">
+        <div className="wellbeing-metric anxiety">
+          <span className="wellbeing-metric-icon" aria-hidden="true">✦</span>
           <span>Anxiety</span>
-          <strong>{analytics.averages.anxiety.toFixed(1)}</strong>
-          <small>/10</small>
+          <strong>{latestEntry?.anxiety ?? '--'}<small>/10</small></strong>
         </div>
       </div>
     )}
@@ -561,40 +561,6 @@ const emotionData = analytics?.emotionCounts
   >
     Open CBT Journal
   </button>
-</section>
-
-        <section className="wellness-section">
-  <h2>Your wellness</h2>
-
-  {entries.length === 0 ? (
-    <p>No wellness entries yet. Your first check-in will appear here.</p>
-  ) : (
-    <div className="wellness-entries">
-      {entries.map((entry) => (
-        <div className="wellness-entry" key={entry._id}>
-
-          <p className="entry-date">
-            Date: <strong>{new Date(entry.date).toLocaleDateString()}</strong>
-          </p>
-
-          <div className="entry-metrics">
-            <p><strong>Mood:</strong> {entry.mood}/10</p>
-            <p><strong>Energy:</strong> {entry.energy}/10</p>
-            <p><strong>Sleep:</strong> {entry.sleep}/10</p>
-            <p><strong>Stress:</strong> {entry.stress}/10</p>
-            <p><strong>Anxiety:</strong> {entry.anxiety}/10</p>
-            <p><strong>Emotion:</strong> {entry.emotion}</p>
-          </div>
-
-          <div className="entry-journal">
-            <strong>Journal</strong>
-            <p>{entry.journal}</p>
-          </div>
-
-        </div>
-      ))}
-    </div>
-  )}
 </section>
 </main>
 </div>

@@ -113,6 +113,20 @@
   transition: 0.2s ease;
 }
 
+.case-overview-icon {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 10px !important;
+  border-radius: 10px;
+  background: #f1f5f9;
+  color: #1768b5 !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+}
+
 .case-overview-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 9px 22px rgba(15, 23, 42, 0.08);

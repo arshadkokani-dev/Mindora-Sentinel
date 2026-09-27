@@ -5,10 +5,12 @@ function Signup() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
 
   const handleSignup = async (e) => {
   e.preventDefault()
+  setLoading(true)
 
   try {
     const response = await fetch('http://localhost:5000/api/auth/signup', {
@@ -68,11 +70,14 @@ function Signup() {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <button type="submit">Create Account</button>
+        <button type="submit" disabled={loading}>
+          {loading && <span className="button-spinner" />}
+          {loading ? 'Creating account...' : 'Create Account'}
+        </button>
         <p className="switch-text">
-  Already have an account?{' '}
-  <Link to="/login">Login</Link>
-</p>
+          Already have an account?{' '}
+          <Link to="/login">Login</Link>
+        </p>
       </form>
     </div>
   )

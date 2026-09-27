@@ -19,7 +19,7 @@ export const protect = async (req, res, next) => {
     );
 
     const user = await User.findById(decoded.userId).select(
-      "_id role"
+      "_id role district state country jurisdictionLevel"
     );
 
     if (!user) {
@@ -30,6 +30,11 @@ export const protect = async (req, res, next) => {
 
     req.userId = user._id;
     req.userRole = user.role || "victim";
+    req.userDistrict = user.district || "";
+    req.userState = user.state || "";
+    req.userCountry = user.country || "India";
+    req.userJurisdictionLevel =
+      user.jurisdictionLevel || "";
 
     next();
   } catch (error) {

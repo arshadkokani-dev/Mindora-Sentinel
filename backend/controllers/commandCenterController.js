@@ -16,9 +16,20 @@ import { calculatePredictiveRisk } from "../services/predictiveRiskService.js";
 
 export const getCommandCenter = async (req, res) => {
   try {
-    const users = await User.find({
+    const victimFilter = {
       role: "victim",
-    })
+    };
+
+    if (req.userJurisdictionLevel === "district") {
+      victimFilter.state = req.userState;
+      victimFilter.district = req.userDistrict;
+    }
+
+    if (req.userJurisdictionLevel === "state") {
+      victimFilter.state = req.userState;
+    }
+
+    const users = await User.find(victimFilter)
       .select("_id name email createdAt caseStatus district state country")
       .lean();
 
@@ -179,7 +190,7 @@ export const getCommandCenter = async (req, res) => {
         },
 
         aiIntelligence: {
-          totalInteractions: aiInteractions.length,
+          totalInteractions: userAIInteractions.length,
 
           latest: latestAIInteraction
             ? {
@@ -399,10 +410,21 @@ export const getCaseDetails = async (req, res) => {
       });
     }
 
-    const user = await User.findOne({
+    const caseFilter = {
       _id: caseId,
       role: "victim",
-    })
+    }
+
+    if (req.userJurisdictionLevel === "district") {
+      caseFilter.state = req.userState
+      caseFilter.district = req.userDistrict
+    }
+
+    if (req.userJurisdictionLevel === "state") {
+      caseFilter.state = req.userState
+    }
+
+    const user = await User.findOne(caseFilter)
       .select("_id name email createdAt caseStatus")
       .lean()
 

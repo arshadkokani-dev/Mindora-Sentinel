@@ -4,10 +4,12 @@ import { Link, useNavigate } from 'react-router-dom'
 function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
 
   const handleLogin = async (e) => {
   e.preventDefault()
+  setLoading(true)
 
   try {
     const response = await fetch('http://localhost:5000/api/auth/login', {
@@ -31,6 +33,8 @@ function Login() {
 }
   } catch (error) {
     console.error('Login error:', error)
+  } finally {
+    setLoading(false)
   }
 }
 
@@ -57,7 +61,9 @@ function Login() {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <button type="submit">Login</button>
+        <button type="submit" disabled={loading}>
+          {loading ? 'Signing in...' : 'Login'}
+        </button>
         <p className="switch-text">
   Don't have an account?{' '}
   <Link to="/signup">Sign up</Link>

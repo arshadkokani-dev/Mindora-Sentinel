@@ -10,6 +10,9 @@ export const updateCaseLifecycle = async (req, res) => {
     const caseUser = await updateCaseStatus({
         caseId: req.params.caseId,
         status,
+        jurisdictionLevel: req.userJurisdictionLevel,
+        state: req.userState,
+        district: req.userDistrict,
       });
 
       await createAuditLog({

@@ -1,4 +1,5 @@
 import Alert from "../models/Alert.js";
+import User from "../models/User.js";
 import { createAuditLog } from "../services/auditService.js";
 
 const findAlert = async (req, res) => {
@@ -11,12 +12,64 @@ const findAlert = async (req, res) => {
     return null;
   }
 
+  const caseUser = await User.findOne({
+    _id: alert.caseId,
+    role: "victim",
+  }).select("state district country");
+
+  if (!caseUser) {
+    res.status(404).json({
+      message: "Associated case not found",
+    });
+    return null;
+  }
+
+  if (req.userJurisdictionLevel === "district") {
+    if (
+      caseUser.state !== req.userState ||
+      caseUser.district !== req.userDistrict
+    ) {
+      res.status(403).json({
+        message: "Access denied for this jurisdiction",
+      });
+      return null;
+    }
+  }
+
+  if (req.userJurisdictionLevel === "state") {
+    if (caseUser.state !== req.userState) {
+      res.status(403).json({
+        message: "Access denied for this jurisdiction",
+      });
+      return null;
+    }
+  }
+
   return alert;
 };
 
 export const getAlerts = async (req, res) => {
   try {
-    const alerts = await Alert.find()
+    const cases = await User.find({
+      role: "victim",
+      ...(req.userJurisdictionLevel === "district"
+        ? {
+            state: req.userState,
+            district: req.userDistrict,
+          }
+        : {}),
+      ...(req.userJurisdictionLevel === "state"
+        ? {
+            state: req.userState,
+          }
+        : {}),
+    }).select("_id");
+
+    const caseIds = cases.map((caseUser) => caseUser._id);
+
+    const alerts = await Alert.find({
+      caseId: { $in: caseIds },
+    })
       .populate("caseId", "name email")
       .populate("reviewer", "name email role")
       .sort({ createdAt: -1 })
