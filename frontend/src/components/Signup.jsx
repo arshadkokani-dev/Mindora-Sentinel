@@ -14,7 +14,7 @@ function Signup() {
   setLoading(true)
 
   try {
-    const response = await fetch(`http://10.208.206.153:5000/api/auth/signup`, {
+    const response = await fetch(`https://mindora-sentinel-backend.onrender.com//api/auth/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -41,7 +41,7 @@ function Chatbot() {
     try {
       const token = localStorage.getItem('token')
 
-      const response = await fetch(`http://10.208.206.153:5000/api/chat`, {
+      const response = await fetch(`https://mindora-sentinel-backend.onrender.com//api/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

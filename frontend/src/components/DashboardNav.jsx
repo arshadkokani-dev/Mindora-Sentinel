@@ -15,7 +15,7 @@ function DashboardNav() {
           if (!token) return
 
           const response = await fetch(
-            `http://10.208.206.153:5000/api/auth/me`,
+            `https://mindora-sentinel-backend.onrender.com//api/auth/me`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
