@@ -12,7 +12,7 @@ function History() {
         const token = localStorage.getItem("token");
 
         const response = await fetch(
-          "https://mindora-sentinel-backend.onrender.com//api/wellness",
+          "https://mindora-sentinel-backend.onrender.com/api/wellness",
           {
             headers: {
               Authorization: `Bearer ${token}`,

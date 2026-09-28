@@ -26,7 +26,7 @@ function Analytics() {
         const token = localStorage.getItem('token')
 
         const response = await fetch(
-          `https://mindora-sentinel-backend.onrender.com//api/analytics`,
+          `https://mindora-sentinel-backend.onrender.com/api/analytics`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

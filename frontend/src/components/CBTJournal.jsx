@@ -15,7 +15,7 @@ function CBTJournal() {
   const token = localStorage.getItem('token')
 
   try {
-    const response = await fetch(`https://mindora-sentinel-backend.onrender.com//api/cbt`, {
+    const response = await fetch(`https://mindora-sentinel-backend.onrender.com/api/cbt`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

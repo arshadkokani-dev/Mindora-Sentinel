@@ -28,7 +28,7 @@ function Dashboard() {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await fetch("https://mindora-sentinel-backend.onrender.com//api/analytics", {
+      const response = await fetch("https://mindora-sentinel-backend.onrender.com/api/analytics", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -59,7 +59,7 @@ useEffect(() => {
     const token = localStorage.getItem('token')
 
     try {
-      const response = await fetch(`https://mindora-sentinel-backend.onrender.com//api/wellness`, {
+      const response = await fetch(`https://mindora-sentinel-backend.onrender.com/api/wellness`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -24,7 +24,7 @@ function CommandCenter() {
         }
 
         const casesResponse = await fetch(
-          `https://mindora-sentinel-backend.onrender.com//api/cases`,
+          `https://mindora-sentinel-backend.onrender.com/api/cases`,
           { headers }
         )
 
@@ -39,7 +39,7 @@ function CommandCenter() {
         setData(casesResult)
 
         const alertsResponse = await fetch(
-          `https://mindora-sentinel-backend.onrender.com//api/alerts`,
+          `https://mindora-sentinel-backend.onrender.com/api/alerts`,
           { headers }
         )
 
@@ -54,7 +54,7 @@ function CommandCenter() {
         setAlerts(alertsResult.alerts || [])
 
         const interventionsResponse = await fetch(
-        `https://mindora-sentinel-backend.onrender.com//api/interventions`,
+        `https://mindora-sentinel-backend.onrender.com/api/interventions`,
         { headers }
       )
 
@@ -83,7 +83,7 @@ function CommandCenter() {
       const token = localStorage.getItem('token')
 
       const response = await fetch(
-        `https://mindora-sentinel-backend.onrender.com//api/alerts/${alertId}/${action}`,
+        `https://mindora-sentinel-backend.onrender.com/api/alerts/${alertId}/${action}`,
         {
           method: 'PATCH',
           headers: {
@@ -121,7 +121,7 @@ const updateCaseStatus = async (caseId, status) => {
     const token = localStorage.getItem('token')
 
     const response = await fetch(
-      `https://mindora-sentinel-backend.onrender.com//api/case-lifecycle/${caseId}/status`,
+      `https://mindora-sentinel-backend.onrender.com/api/case-lifecycle/${caseId}/status`,
       {
         method: 'PATCH',
         headers: {

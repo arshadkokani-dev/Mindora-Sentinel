@@ -21,7 +21,7 @@ function WellnessCheckin() {
 
   try {
     const response = await fetch(
-      `https://mindora-sentinel-backend.onrender.com//api/wellness`,
+      `https://mindora-sentinel-backend.onrender.com/api/wellness`,
       {
         method: 'POST',
         headers: {
@@ -51,7 +51,7 @@ function WellnessCheckin() {
       setReflectionLoading(true)
 
       const aiResponse = await fetch(
-        `https://mindora-sentinel-backend.onrender.com//api/ai/reflection`,
+        `https://mindora-sentinel-backend.onrender.com/api/ai/reflection`,
         {
           method: 'POST',
           headers: {
