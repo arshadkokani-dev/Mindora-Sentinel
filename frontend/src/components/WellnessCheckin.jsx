@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import EmotionWheel from './EmotionWheel'
 
+
 function WellnessCheckin() {
   const [mood, setMood] = useState(5)
   const [energy, setEnergy] = useState(5)
@@ -20,7 +21,7 @@ function WellnessCheckin() {
 
   try {
     const response = await fetch(
-      'http://localhost:5000/api/wellness',
+      `http://10.208.206.153:5000/api/wellness`,
       {
         method: 'POST',
         headers: {
@@ -50,7 +51,7 @@ function WellnessCheckin() {
       setReflectionLoading(true)
 
       const aiResponse = await fetch(
-        'http://localhost:5000/api/ai/reflection',
+        `http://10.208.206.153:5000/api/ai/reflection`,
         {
           method: 'POST',
           headers: {

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+
 function CBTJournal() {
   const [situation, setSituation] = useState('')
   const [thought, setThought] = useState('')
@@ -14,7 +15,7 @@ function CBTJournal() {
   const token = localStorage.getItem('token')
 
   try {
-    const response = await fetch('http://localhost:5000/api/cbt', {
+    const response = await fetch(`http://10.208.206.153:5000/api/cbt`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

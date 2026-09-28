@@ -2753,3 +2753,89 @@ body {
     transform: rotate(360deg);
   }
 }
+
+/* =========================================
+   GLOBAL MOBILE SIDEBAR
+   ========================================= */
+
+@media (max-width: 768px) {
+
+  /* Content gets the full phone width */
+  .dashboard-content {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+
+  /* Sidebar open state */
+  .dashboard-sidebar:not(.collapsed) {
+    width: 250px !important;
+    padding: 24px 16px !important;
+    box-shadow: 8px 0 24px rgba(31, 48, 66, 0.12);
+  }
+
+  /* Sidebar closed state */
+  .dashboard-sidebar.collapsed {
+    width: 0 !important;
+    padding: 0 !important;
+    border-right: 0 !important;
+    overflow: visible !important;
+  }
+
+  /* Hide sidebar contents when closed */
+  .dashboard-sidebar.collapsed .sidebar-brand,
+  .dashboard-sidebar.collapsed .sidebar-navigation,
+  .dashboard-sidebar.collapsed .sidebar-footer {
+    visibility: hidden;
+  }
+
+  /* Menu button when sidebar is closed */
+  .dashboard-sidebar.collapsed .sidebar-collapse-button {
+    visibility: visible;
+    position: absolute;
+    right: -44px;
+    top: 22px;
+    width: 32px;
+    height: 32px;
+    z-index: 1100;
+  }
+
+  /* Close button when sidebar is open */
+  .dashboard-sidebar:not(.collapsed) .sidebar-collapse-button {
+    position: absolute;
+    right: 16px;
+    top: 22px;
+    z-index: 1100;
+  }
+
+  /* Full-width page content */
+  .dashboard {
+    width: 100%;
+    padding: 24px 16px;
+  }
+}
+
+@media (max-width: 768px) {
+
+  /* Restore sidebar content when mobile sidebar is open */
+  .dashboard-sidebar:not(.collapsed) .sidebar-brand-text {
+    display: flex;
+  }
+
+  .dashboard-sidebar:not(.collapsed) .sidebar-link span:not(.sidebar-icon) {
+    display: inline;
+  }
+
+  .dashboard-sidebar:not(.collapsed) .sidebar-footer {
+    display: flex;
+  }
+
+  .dashboard-sidebar:not(.collapsed) .sidebar-header {
+    justify-content: space-between;
+  }
+
+  .dashboard-sidebar:not(.collapsed) .sidebar-link {
+    justify-content: flex-start;
+    padding: 0 13px;
+  }
+
+}

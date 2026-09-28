@@ -16,7 +16,7 @@ function CaseDetails() {
         const token = localStorage.getItem('token')
 
         const response = await fetch(
-          `http://localhost:5000/api/cases/${caseId}`,
+          `http://10.208.206.153:5000/api/cases/${caseId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

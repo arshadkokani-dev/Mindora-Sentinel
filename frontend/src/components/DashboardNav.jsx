@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
+
 function DashboardNav() {
   const [collapsed, setCollapsed] = useState(false)
 
@@ -14,7 +15,7 @@ function DashboardNav() {
           if (!token) return
 
           const response = await fetch(
-            'http://localhost:5000/api/auth/me',
+            `http://10.208.206.153:5000/api/auth/me`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,

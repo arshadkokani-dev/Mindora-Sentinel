@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
+
 function Signup() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -13,7 +14,7 @@ function Signup() {
   setLoading(true)
 
   try {
-    const response = await fetch('http://localhost:5000/api/auth/signup', {
+    const response = await fetch(`http://10.208.206.153:5000/api/auth/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

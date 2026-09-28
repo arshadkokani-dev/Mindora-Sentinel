@@ -12,7 +12,7 @@ function History() {
         const token = localStorage.getItem("token");
 
         const response = await fetch(
-          "http://localhost:5000/api/wellness",
+          "http://10.208.206.153:5000/api/wellness",
           {
             headers: {
               Authorization: `Bearer ${token}`,

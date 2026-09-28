@@ -15,6 +15,7 @@ import {
 } from 'recharts'
 
 
+
 function Dashboard() {
   const navigate = useNavigate()
   const [entries, setEntries] = useState([])
@@ -27,7 +28,7 @@ function Dashboard() {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await fetch("http://localhost:5000/api/analytics", {
+      const response = await fetch("http://10.208.206.153:5000/api/analytics", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -58,7 +59,7 @@ useEffect(() => {
     const token = localStorage.getItem('token')
 
     try {
-      const response = await fetch('http://localhost:5000/api/wellness', {
+      const response = await fetch(`http://10.208.206.153:5000/api/wellness`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

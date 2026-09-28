@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import '../styles/commandCenter.css'
 import { useNavigate } from 'react-router-dom'
 
+
 function CommandCenter() {
   const navigate = useNavigate()
   const [data, setData] = useState(null)
@@ -23,7 +24,7 @@ function CommandCenter() {
         }
 
         const casesResponse = await fetch(
-          'http://localhost:5000/api/cases',
+          `http://10.208.206.153:5000/api/cases`,
           { headers }
         )
 
@@ -38,7 +39,7 @@ function CommandCenter() {
         setData(casesResult)
 
         const alertsResponse = await fetch(
-          'http://localhost:5000/api/alerts',
+          `http://10.208.206.153:5000/api/alerts`,
           { headers }
         )
 
@@ -53,7 +54,7 @@ function CommandCenter() {
         setAlerts(alertsResult.alerts || [])
 
         const interventionsResponse = await fetch(
-        'http://localhost:5000/api/interventions',
+        `http://10.208.206.153:5000/api/interventions`,
         { headers }
       )
 
@@ -82,7 +83,7 @@ function CommandCenter() {
       const token = localStorage.getItem('token')
 
       const response = await fetch(
-        `http://localhost:5000/api/alerts/${alertId}/${action}`,
+        `http://10.208.206.153:5000/api/alerts/${alertId}/${action}`,
         {
           method: 'PATCH',
           headers: {
@@ -120,7 +121,7 @@ const updateCaseStatus = async (caseId, status) => {
     const token = localStorage.getItem('token')
 
     const response = await fetch(
-      `http://localhost:5000/api/case-lifecycle/${caseId}/status`,
+      `http://10.208.206.153:5000/api/case-lifecycle/${caseId}/status`,
       {
         method: 'PATCH',
         headers: {

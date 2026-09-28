@@ -41,7 +41,7 @@ function Chatbot() {
     try {
       const token = localStorage.getItem('token')
 
-      const response = await fetch('http://localhost:5000/api/chat', {
+      const response = await fetch(`http://10.208.206.153:5000/api/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -118,7 +118,9 @@ function Chatbot() {
     setMessage((current) => `${current} ${transcript}`.trim())
   }
 
-  recognition.onerror = () => {
+  recognition.onerror = (event) => {
+    console.error('Speech recognition error:', event.error)
+    alert(`Voice input error: ${event.error}`)
     setListening(false)
     recognitionRef.current = null
   }
@@ -128,7 +130,14 @@ function Chatbot() {
     recognitionRef.current = null
   }
 
-  recognition.start()
+  try {
+    recognition.start()
+  } catch (error) {
+    console.error('Failed to start speech recognition:', error)
+    setListening(false)
+    recognitionRef.current = null
+    alert('Voice input could not start. Please check microphone permission.')
+  }
 }
 
   return (

@@ -14,6 +14,7 @@ import {
   Cell,
 } from 'recharts'
 
+
 function Analytics() {
   const [analytics, setAnalytics] = useState(null)
   const [analyticsLoading, setAnalyticsLoading] = useState(true)
@@ -25,7 +26,7 @@ function Analytics() {
         const token = localStorage.getItem('token')
 
         const response = await fetch(
-          'http://localhost:5000/api/analytics',
+          `http://10.208.206.153:5000/api/analytics`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
