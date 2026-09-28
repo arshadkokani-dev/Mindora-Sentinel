@@ -7,7 +7,7 @@ import { calculateRiskReasoning } from "../services/riskReasoningService.js";
 import { calculateIntervention } from "../services/interventionService.js";
 import { analyzeLongitudinalEmotion } from "../services/longitudinalEmotionService.js";
 import { calculateEngagement } from "../services/engagementService.js";
-import { calculateCheckInStatus } from "../services/checkInService.js";
+import { calculateCheckInStatus } from "../services/checkinService.js";
 
 export const getWellnessAnalytics = async (req, res) => {
   try {

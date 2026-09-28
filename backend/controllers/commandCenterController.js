@@ -9,7 +9,7 @@ import { calculateEscalation } from "../services/escalationService.js";
 import { calculateRiskAlert } from "../services/alertService.js";
 import { calculateIntervention } from "../services/interventionService.js";
 import { calculateEngagement } from "../services/engagementService.js";
-import { calculateCheckInStatus } from "../services/checkInService.js";
+import { calculateCheckInStatus } from "../services/checkinService.js";
 import { calculateCasePriority } from "../services/casePriorityService.js";
 import { createOrUpdateAlert } from "../services/alertManagementService.js";
 import { calculatePredictiveRisk } from "../services/predictiveRiskService.js";
