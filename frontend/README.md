@@ -22,3 +22,9 @@ If you are developing a production application, we recommend using TypeScript wi
 Mindora-Sentinel is an AI-powered dynamic mental health monitoring and decision-support platform designed to help authorised caseworkers and counsellors identify changing distress patterns over time.
 
 The system combines periodic wellness check-ins, dynamic distress scoring, longitudinal risk analysis, explainable alerts, predictive risk indicators, automated case prioritisation, intervention recommendations, and role-based case management.
+
+## Deployment
+
+Mindora-Sentinel is deployed as a separate frontend and backend service with a cloud-hosted MongoDB database. The prototype supports role-based access for users and authorised caseworkers/counsellors.
+
+The first request after a period of inactivity may take a short time due to cloud service initialization.
