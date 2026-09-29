@@ -16,3 +16,9 @@ Note: This will impact Vite dev & build performances.
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+## Project Overview
+
+Mindora-Sentinel is an AI-powered dynamic mental health monitoring and decision-support platform designed to help authorised caseworkers and counsellors identify changing distress patterns over time.
+
+The system combines periodic wellness check-ins, dynamic distress scoring, longitudinal risk analysis, explainable alerts, predictive risk indicators, automated case prioritisation, intervention recommendations, and role-based case management.
